@@ -37,8 +37,8 @@ Follow these steps to set up the project locally:
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/SIC-Unud/orinimo-store.git
-    cd orinimo-store
+    git clone https://github.com/https://github.com/YasMbul/sisakti-plus.git
+    cd sisakti-plus
     ```
 
 2. **Install PHP dependencies:**
@@ -69,7 +69,7 @@ Follow these steps to set up the project locally:
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
-    DB_DATABASE=orinimo-store
+    DB_DATABASE=sisakti-plus
     DB_USERNAME=root
     DB_PASSWORD=
     ```
