@@ -26,7 +26,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -42,4 +41,14 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
+
+   public function skps()
+   {
+      return $this->hasMany(Skp::class);
+   }
 }
