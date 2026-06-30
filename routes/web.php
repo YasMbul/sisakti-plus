@@ -10,6 +10,7 @@ use App\Http\Controllers\UnsurController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 
 // Route::view('/', 'welcome')->name('home');
 
@@ -38,4 +39,13 @@ Route::middleware(['auth', 'role:admin'])
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::view('/', 'user.dashboard')->name('home');
+});
+
+Route::get('/logout-test', function () {
+   Auth::logout();
+
+   request()->session()->invalidate();
+   request()->session()->regenerateToken();
+
+   return redirect('/login');
 });

@@ -12,7 +12,7 @@
 
    @vite (['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="m-0 flex min-h-screen items-center justify-center bg-white p-0 font-sans md:p-8">
+<body class="font-montserrat m-0 flex min-h-screen items-center justify-center bg-white p-0 md:p-8">
    <div
       class="flex w-full max-w-4/5 flex-col justify-center gap-8 rounded-2xl bg-white md:flex-row md:gap-12"
    >
