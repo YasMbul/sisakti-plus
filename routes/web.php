@@ -20,3 +20,4 @@ Route::resource('skp-details', SkpDetailController::class);
 Route::resource('skps', SkpController::class);
 Route::resource('files', FileController::class);
 Route::resource('users', UserController::class);
+Route::view('/login', 'login')->name('home');
