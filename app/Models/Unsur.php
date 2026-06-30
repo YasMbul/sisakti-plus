@@ -10,4 +10,9 @@ class Unsur extends Model
    {
       return $this->hasMany(SubUnsur::class);
    }
+
+   public function skpDetails()
+   {
+      return $this->hasMany(SkpDetail::class);
+   }
 }
