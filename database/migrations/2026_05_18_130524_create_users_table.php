@@ -16,7 +16,8 @@ return new class extends Migration {
          $table->string('nim')->unique();
          $table->string('password');
          $table->boolean('role')->default(false);
-         $table->foreignId('major_id')->constrained('majors')->cascadeOnDelete();
+         $table->foreignId('faculty_id')->constrained('faculties')->cascadeOnDelete();
+         $table->foreignId('major_id')->nullable()->constrained('majors')->cascadeOnDelete();
          $table->timestamps();
       });
 
