@@ -17,8 +17,7 @@ class User extends Authenticatable
 {
    /** @use HasFactory<UserFactory> */
    use HasFactory, Notifiable;
-   const IS_ADMIN = true;
-   const IS_USER = false;
+
    /**
     * Get the attributes that should be cast.
     *

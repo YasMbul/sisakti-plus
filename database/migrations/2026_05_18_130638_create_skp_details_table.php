@@ -15,8 +15,12 @@ return new class extends Migration {
          $table->string('name')->unique();
          $table->integer('bobot');
          $table->foreignId('unsur_id')->constrained('unsurs')->cascadeOnDelete();
-         $table->foreignId('sub_unsur_id')->constrained('sub_unsurs')->cascadeOnDelete();
-         $table->foreignId('tingkat_id')->constrained('tingkats')->cascadeOnDelete();
+         $table
+            ->foreignId('sub_unsur_id')
+            ->nullable()
+            ->constrained('sub_unsurs')
+            ->cascadeOnDelete();
+         $table->foreignId('tingkat_id')->nullable()->constrained('tingkats')->cascadeOnDelete();
          $table->foreignId('partisipasi_id')->constrained('partisipasis')->cascadeOnDelete();
          $table->timestamps();
       });
