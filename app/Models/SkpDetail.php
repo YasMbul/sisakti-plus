@@ -11,6 +11,11 @@ class SkpDetail extends Model
       return $this->hasMany(Skp::class);
    }
 
+   public function unsur()
+   {
+      return $this->belongsTo(Unsur::class);
+   }
+
    public function subUnsur()
    {
       return $this->belongsTo(SubUnsur::class);

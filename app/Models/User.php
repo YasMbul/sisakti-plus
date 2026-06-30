@@ -52,4 +52,9 @@ class User extends Authenticatable
    {
       return $this->hasMany(Skp::class);
    }
+
+   public function faculty()
+   {
+      return $this->belongsTo(Faculty::class);
+   }
 }
