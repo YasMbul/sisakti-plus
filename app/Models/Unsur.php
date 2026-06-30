@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unsur extends Model
 {
-   public function skpDetails()
+   public function subUnsurs()
    {
-       return $this->hasMany(SkpDetail::class);
+      return $this->hasMany(SubUnsur::class);
    }
 }
