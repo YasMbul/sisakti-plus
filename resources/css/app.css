@@ -10,4 +10,14 @@
       'Segoe UI Symbol', 'Noto Color Emoji';
 
    --color-primary: #1b4d3e;
+   --color-subtext-light-grey: #9A9489;
+   --color-subtext-dark-grey: #5C5750;
+   --color-subtext-brown: #92570A;
+   --color-status-blue: #2563EB;
+   --color-status-green: #1D9E75;
+   --color-status-red: #8B2020;
+   --color-status-grey: #5C5750;
+   --color-status-yellow: #EF9F27;
+   --color-black: #1A1714;
+   
 }
