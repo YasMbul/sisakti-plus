@@ -10,18 +10,10 @@ return new class extends Migration {
     */
    public function up(): void
    {
-      Schema::create('skp_details', function (Blueprint $table) {
+      Schema::create('sub_unsurs', function (Blueprint $table) {
          $table->id();
          $table->string('name')->unique();
-         $table->integer('bobot');
          $table->foreignId('unsur_id')->constrained('unsurs')->cascadeOnDelete();
-         $table
-            ->foreignId('sub_unsur_id')
-            ->nullable()
-            ->constrained('sub_unsurs')
-            ->cascadeOnDelete();
-         $table->foreignId('tingkat_id')->nullable()->constrained('tingkats')->cascadeOnDelete();
-         $table->foreignId('partisipasi_id')->constrained('partisipasis')->cascadeOnDelete();
          $table->timestamps();
       });
    }
@@ -31,6 +23,6 @@ return new class extends Migration {
     */
    public function down(): void
    {
-      Schema::dropIfExists('skp_details');
+      Schema::dropIfExists('sub_unsurs');
    }
 };

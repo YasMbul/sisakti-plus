@@ -8,6 +8,11 @@ class Faculty extends Model
 {
    public function majors()
    {
-       return $this->hasMany(Major::class);
+      return $this->hasMany(Major::class);
+   }
+
+   public function users()
+   {
+      return $this->hasMany(User::class);
    }
 }

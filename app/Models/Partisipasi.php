@@ -4,13 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Unsur extends Model
+class Partisipasi extends Model
 {
-   public function subUnsurs()
-   {
-      return $this->hasMany(SubUnsur::class);
-   }
-
    public function skpDetails()
    {
       return $this->hasMany(SkpDetail::class);
