@@ -9,8 +9,9 @@ use App\Http\Controllers\SkpDetailController;
 use App\Http\Controllers\UnsurController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
-Route::view('/', 'welcome')->name('home');
+// Route::view('/', 'welcome')->name('home');
 
 Route::resource('faculties', FacultyController::class);
 Route::resource('majors', MajorController::class);
@@ -20,4 +21,21 @@ Route::resource('skp-details', SkpDetailController::class);
 Route::resource('skps', SkpController::class);
 Route::resource('files', FileController::class);
 Route::resource('users', UserController::class);
-Route::view('/login', 'login')->name('home');
+
+Route::controller(AuthController::class)->group(function () {
+   Route::get('/login', 'index')->name('login');
+   Route::post('/login', 'login')->name('login.auth');
+
+   Route::post('/logout', 'logout')->middleware('auth')->name('logout');
+});
+
+Route::middleware(['auth', 'role:admin'])
+   ->prefix('admin')
+   ->name('admin.')
+   ->group(function () {
+      Route::view('/', 'admin.dashboard')->name('home');
+   });
+
+Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
+   Route::view('/', 'user.dashboard')->name('home');
+});

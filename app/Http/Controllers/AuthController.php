@@ -28,11 +28,16 @@ class AuthController extends Controller
          $request->session()->regenerate();
 
          return match (Auth::user()->role) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'mahasiswa' => redirect()->route('dashboard'),
+            'admin' => redirect()->route('admin.home'),
+            'mahasiswa' => redirect()->route('home'),
             default => redirect()->route('home'),
          };
       }
+      return back()
+         ->withErrors([
+            'nim' => 'NIM atau password salah.',
+         ])
+         ->withInput();
    }
 
    public function logout(Request $request)

@@ -39,43 +39,23 @@
          <form action="{{ route('login.auth') }}" method="POST" class="flex w-full flex-col gap-4">
             @csrf
 
-            <div>
-               <label for="nim" class="mb-2 block text-base font-semibold text-[#000000]">
-                  NIM
-               </label>
-               <div class="relative flex items-center">
-                  <svg class="absolute left-4 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                  </svg>
-                  <input
-                     type="text"
-                     id="nim"
-                     name="nim"
-                     required
-                     placeholder="Masukkan NIM Anda..."
-                     class="w-full rounded-lg border border-gray-300 py-3 pr-4 pl-12 text-sm font-medium text-[#001524]/60 focus:border-transparent focus:ring-2 focus:ring-[#1B4D3E] focus:outline-none"
-                  />
-               </div>
-            </div>
+            <x-input
+               label="NIM"
+               name="nim"
+               icon="user"
+               placeholder="Masukkan NIM Anda..."
+               classInput="w-full rounded-lg border border-gray-300 text-sm font-medium text-[#001524]/60 focus:border-transparent focus:ring-2 focus:ring-[#1B4D3E] focus:outline-none"
+            />
 
-            <div>
-               <label for="password" class="mb-2 block text-base font-semibold text-[#000000]">
-                  Password
-               </label>
-               <div class="relative flex items-center">
-                  <svg class="absolute left-4 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                  </svg>
-                  <input
-                     type="password"
-                     id="password"
-                     name="password"
-                     required
-                     placeholder="Masukkan Password Anda..."
-                     class="w-full rounded-lg border border-gray-300 py-3 pr-4 pl-12 text-sm font-medium text-[#001524]/60 focus:border-transparent focus:ring-2 focus:ring-[#1B4D3E] focus:outline-none"
-                  />
-               </div>
-            </div>
+            <x-input
+               label="Passowrd"
+               type="password"
+               name="password"
+               icon="key"
+               togglePass
+               placeholder="Masukkan Password Anda..."
+               classInput="w-full rounded-lg border border-gray-300 text-sm font-medium text-[#001524]/60 focus:border-transparent focus:ring-2 focus:ring-[#1B4D3E] focus:outline-none"
+            />
 
             <div class="mb-8 flex items-center justify-between">
                <label for="remember-me" class="flex cursor-pointer items-center gap-2">
@@ -111,5 +91,6 @@
             </div>
          </form>
       </div>
+      @livewireScripts
 </body>
 </html>
