@@ -16,8 +16,8 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="py-8 pl-11 pr-7 bg-stone-50 min-h-screen">
-        <div class="w-full max-w-6xl my-2 font-sans space-y-6">
+    <div class="py-2 pl-11 pr-7 bg-stone-50 min-h-screen">
+        <div class="w-full my-2 font-sans space-y-6">
 
             {{-- Flash Alert --}}
             @if (session()->has('success'))

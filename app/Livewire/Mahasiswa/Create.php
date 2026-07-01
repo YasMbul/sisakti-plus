@@ -48,9 +48,9 @@ class Create extends Component
             $this->semester = $skp->semester_id;
             
             if ($skp->skpDetail) {
-                $this->kategori_skp = $skp->skpDetail;
+                $this->kategori_skp = $skp->skpDetail->sub_unsur_id;
             }
-            
+                        
             $this->existing_sertifikat = $skp->sertificate;
             $this->isEdit = true;
         }

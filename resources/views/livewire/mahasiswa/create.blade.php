@@ -13,8 +13,8 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="py-8 pl-11 pr-7 bg-stone-50">
-        <div class="w-full max-w-4xl my-2 font-sans">
+    <div class="py-2 pl-11 pr-7 bg-stone-50 ">
+        <div class="w-full my-2 font-sans w-full min-h-screen">
             
             {{-- Alert Success / Error --}}
             @if (session()->has('success'))
@@ -51,7 +51,7 @@
                         :selected="$kategori_skp"
                         :options="$detail->map(fn($sub) => [
                             'id' => $sub->id,
-                            'label' => $sub->unsur->name . ' - ' . $sub->name,
+                            'label' => $sub->unsur->name . ' - ' . $sub->name, ' - ' . $sub->bobot,
                         ])->values()"
                     />
 
@@ -113,7 +113,7 @@
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 accept="application/pdf"
                             />
-                            <div class="text-3xl text-stone-700">📎</div>
+                            <div class="text-3xl text-stone-700"><img src="{{ asset('images/Vector.png') }}" alt="PDF Icon" srcset=""></div>
                             <div class="text-stone-900 text-sm font-semibold">
                                 {{ $sertifikat ? $sertifikat->getClientOriginalName() : 'Pilih File Sertifikat' }}
                             </div>
