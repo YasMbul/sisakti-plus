@@ -66,7 +66,8 @@
             <h3 class="text-base font-bold text-black">Antrian Validasi Terbaru</h3>
             @if ($sisa > 0)
                <a
-                  href="#"
+                  wire:navigate
+                  href="{{ route('admin.verifikasi-skp') }}"
                   class="text-status-green hover:text-primary flex items-center gap-1 text-xs font-semibold transition"
                >
                   Lihat semua ({{ $sisa }}) <span>&rarr;</span>
