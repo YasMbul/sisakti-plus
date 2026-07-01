@@ -8,8 +8,6 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use App\Models\Skp;
 use App\Models\Semester;
-use App\Models\SubUnsur;
-use App\Models\Tingkat;
 use App\Models\Partisipasi;
 use App\Models\SkpDetail;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +25,6 @@ class Create extends Component
     public $semester; // semester_id
     public $tgl_mulai;
     public $tgl_selesai;
-    public $tingkat_kegiatan; // tingkat_id
     public $sertifikat; // uploaded file
     public $existing_sertifikat; // existing file path
 
@@ -52,9 +49,8 @@ class Create extends Component
             
             if ($skp->skpDetail) {
                 $this->kategori_skp = $skp->skpDetail->sub_unsur_id;
-                $this->tingkat_kegiatan = $skp->skpDetail->tingkat_id;
             }
-            
+                        
             $this->existing_sertifikat = $skp->sertificate;
             $this->isEdit = true;
         }
@@ -69,7 +65,6 @@ class Create extends Component
             'semester' => 'required|exists:semesters,id',
             'tgl_mulai' => 'required|date',
             'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai',
-            'tingkat_kegiatan' => 'required|exists:tingkats,id',
         ];
 
         if ($this->isEdit) {
@@ -85,14 +80,11 @@ class Create extends Component
         $partisipasiId = $pesertaPartisipasi ? $pesertaPartisipasi->id : 1;
 
         $skpDetail = SkpDetail::where('sub_unsur_id', $this->kategori_skp)
-            ->where('tingkat_id', $this->tingkat_kegiatan)
             ->where('partisipasi_id', $partisipasiId)
             ->first();
 
-        // Fallback 1: match sub_unsur & tingkat with any partisipasi
         if (!$skpDetail) {
             $skpDetail = SkpDetail::where('sub_unsur_id', $this->kategori_skp)
-                ->where('tingkat_id', $this->tingkat_kegiatan)
                 ->first();
         }
 
@@ -140,9 +132,8 @@ class Create extends Component
     public function render()
     {
         return view('livewire.mahasiswa.create', [
-            'subUnsurs' => SubUnsur::with('unsur')->get(),
+            'detail' => SkpDetail::with('unsur')->get(),
             'semesters' => Semester::orderBy('name', 'desc')->get(),
-            'tingkats' => Tingkat::all(),
         ]);
     }
 }

@@ -20,8 +20,8 @@
       'mahasiswa' => [
          [
             'title' => 'Panduan SKP',
-            'isActive' => request()->routeIs('home'),
-            'to' => route('home'),
+            'isActive' => request()->routeIs('mahasiswa.panduan'),
+            'to' => route('mahasiswa.panduan'),
             'icon' => 'book',
          ],
          [

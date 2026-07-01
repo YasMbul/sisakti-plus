@@ -50,17 +50,14 @@ Route::middleware(['auth', 'role:admin'])
 
 // Route Mahasiswa
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
-   Route::get('/', \App\Livewire\Mahasiswa\Dashboard::class)->name('home');
    Route::get('/upload-sertifikat/{id?}', \App\Livewire\Mahasiswa\Create::class)->name(
       'mahasiswa.upload',
    );
    Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name(
       'mahasiswa.daftar',
    );
-   Route::view('/', 'user.dashboard')->name('home');
-   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\DaftarSertifikat\Index::class)->name(
-      'daftar-sertifikat',
-   );
+   Route::get('/', \App\Livewire\Mahasiswa\Dashboard::class)->name('home',);
+   Route::view('/panduan', 'livewire.mahasiswa.panduan-skp')->name('mahasiswa.panduan');
 });
 
 Route::view('/login-view', 'login');

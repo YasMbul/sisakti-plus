@@ -28,10 +28,17 @@ class Dashboard extends Component
                 if ($skp->status === 'approved') {
                     $approvedSkp += $skp->skpDetail->bobot;
                 } elseif ($skp->status === 'pending') {
-                    $pendingSkp += $skp->skpDetail->bobot;
+                    $pendingSkp += 1;
                 }
             }
         }
+
+        $rejectedCount = Skp::where('user_id', $user->id)
+        ->where('status', 'rejected')
+        ->count();
+        $approvedCount = Skp::where('user_id', $user->id)
+        ->where('status', 'approved')
+        ->count();
 
         // Target SKP for graduation
         $targetSkp = 100;
@@ -50,6 +57,8 @@ class Dashboard extends Component
             'totalUploaded' => $totalUploaded,
             'targetSkp' => $targetSkp,
             'progressPercent' => $progressPercent,
+            'rejectedCount' => $rejectedCount, // tambahan
+            'approvedCount' => $approvedCount, // tambahan
             'recentSkps' => $recentSkps,
             'user' => $user->load(['major', 'faculty']),
         ]);
