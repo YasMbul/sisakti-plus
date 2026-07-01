@@ -1,7 +1,7 @@
 <svg
    {{
       $attributes->merge([
-         'class' => 'text-secondary size-6',
+         'class' => 'text-inherit size-6',
          'fill' => 'none',
       ])
    }}

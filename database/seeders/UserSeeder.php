@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
          $users[] = [
             'name' => 'Mahasiswa ' . $nim,
             'nim' => (string) $nim,
+            'picture' => null,
             'password' => Hash::make('password'),
             'role' => 'mahasiswa',
             'major_id' => $major->id,
@@ -44,6 +45,7 @@ class UserSeeder extends Seeder
          $users[] = [
             'name' => 'BEM ' . $item->name,
             'nim' => 'BEM ' . $item->name,
+            'picture' => null,
             'password' => Hash::make('password'),
             'role' => 'admin',
             'major_id' => null,
