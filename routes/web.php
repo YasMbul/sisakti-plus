@@ -41,11 +41,6 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::view('/', 'user.dashboard')->name('home');
 });
 
-Route::get('/logout-test', function () {
-   Auth::logout();
 
-   request()->session()->invalidate();
-   request()->session()->regenerateToken();
-
-   return redirect('/login');
-});
+Route::view('/login', 'login')->name('home');
+Route::view('/tes', 'tes')->name('tes');
