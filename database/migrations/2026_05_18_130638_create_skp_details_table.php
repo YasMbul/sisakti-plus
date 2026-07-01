@@ -21,7 +21,11 @@ return new class extends Migration {
             ->constrained('sub_unsurs')
             ->cascadeOnDelete();
          $table->foreignId('tingkat_id')->nullable()->constrained('tingkats')->cascadeOnDelete();
-         $table->foreignId('partisipasi_id')->constrained('partisipasis')->cascadeOnDelete();
+         $table
+            ->foreignId('partisipasi_id')
+            ->nullable()
+            ->constrained('partisipasis')
+            ->cascadeOnDelete();
          $table->timestamps();
       });
    }
