@@ -30,22 +30,18 @@ Route::controller(AuthController::class)->group(function () {
    Route::post('/logout', 'logout')->middleware('auth')->name('logout');
 });
 
+// Route Admin
 Route::middleware(['auth', 'role:admin'])
    ->prefix('admin')
    ->name('admin.')
    ->group(function () {
-      Route::view('/', 'admin.dashboard')->name('home');
+      Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('home');
    });
 
+// Route Mahasiswa
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::view('/', 'user.dashboard')->name('home');
 });
 
-Route::get('/logout-test', function () {
-   Auth::logout();
-
-   request()->session()->invalidate();
-   request()->session()->regenerateToken();
-
-   return redirect('/login');
-});
+Route::view('/login', 'login')->name('home');
+Route::view('/tes', 'tes')->name('tes');
