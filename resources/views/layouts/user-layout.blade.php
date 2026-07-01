@@ -18,8 +18,8 @@
    $menus = [
       [
          'title' => 'Panduan SKP',
-         'isActive' => request()->routeIs('panduan'),
-         'to' => route('panduan'),
+         'isActive' => false,
+         'to' => '/',
          'icon' => 'book',
       ],
       [
@@ -30,8 +30,8 @@
       ],
       [
          'title' => 'Daftar Sertifikat',
-         'isActive' => request()->routeIs('lihat-sertifikat'),
-         'to' => route('lihat-sertifikat'),
+         'isActive' => false,
+         'to' => '/',
          'icon' => 'hamburg',
       ],
    ];
@@ -47,15 +47,19 @@
                class="mt-3 flex w-4/5 items-center gap-2.5 rounded-xl bg-white/12 px-2.5 py-1.25 text-xs font-semibold text-white"
             >
                <span class="size-2.25 rounded-full bg-[#7ECBA3]"></span>
-               Mahasiswa
+               {{
+                  $user->role === 'mahasiswa'
+                     ? 'Mahasiswa'
+                     : 'Admin BEM'
+               }}
             </div>
          </div>
          <div class="flex flex-1 flex-col gap-4 px-2.25 py-4">
             <div class="px-1.75">
                <x-nav-link
-                  href="{{ route('home') }}"
+                  href="{{ $dashboard['to'] }}"
                   icon="dashboard"
-                  isActive="{{ request()->routeIs('home') }}"
+                  isActive="{{ $dashboard['isActive'] }}"
                   iconClass="size-4!"
                >
                   Dashboard
@@ -98,7 +102,7 @@
             </form>
          </div>
       </nav>
-      <main class="ml-58">
+      <main class="bg-background ml-58">
          @if (isset($slot))
             {{ $slot }}
          @else
