@@ -43,6 +43,7 @@ Route::middleware(['auth', 'role:admin'])
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::view('/', 'user.dashboard')->name('home');
    Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\DaftarSertifikat\Index::class)->name('daftar-sertifikat');
+   Route::get('/daftar-sertifikat/{id}/edit', \App\Livewire\Mahasiswa\DaftarSertifikat\Edit::class)->name('daftar-sertifikat.edit');
 });
 
 Route::view('/login', 'login')->name('home');
