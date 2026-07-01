@@ -14,6 +14,8 @@ class UserSeeder extends Seeder
     */
    public function run(): void
    {
+      $hashedPassword = Hash::make('password');
+
       $majors = DB::table('majors')->select('id', 'faculty_id')->get();
 
       $faculties = DB::table('faculties')->get(['id', 'name']);
@@ -32,7 +34,7 @@ class UserSeeder extends Seeder
             'name' => 'Mahasiswa ' . $nim,
             'nim' => (string) $nim,
             'picture' => null,
-            'password' => Hash::make('password'),
+            'password' => $hashedPassword,
             'role' => 'mahasiswa',
             'major_id' => $major->id,
             'faculty_id' => $major->faculty_id,
@@ -46,7 +48,7 @@ class UserSeeder extends Seeder
             'name' => 'BEM ' . $item->name,
             'nim' => 'BEM ' . $item->name,
             'picture' => null,
-            'password' => Hash::make('password'),
+            'password' => $hashedPassword,
             'role' => 'admin',
             'major_id' => null,
             'faculty_id' => $item->id,

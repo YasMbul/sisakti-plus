@@ -20,20 +20,20 @@
       'mahasiswa' => [
          [
             'title' => 'Panduan SKP',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('home'),
+            'to' => route('home'),
             'icon' => 'book',
          ],
          [
             'title' => 'Upload Sertifikat',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('mahasiswa.upload'),
+            'to' => route('mahasiswa.upload'),
             'icon' => 'up-arrow',
          ],
          [
             'title' => 'Daftar Sertifikat',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('mahasiswa.daftar'),
+            'to' => route('mahasiswa.daftar'),
             'icon' => 'hamburg',
          ],
       ],
