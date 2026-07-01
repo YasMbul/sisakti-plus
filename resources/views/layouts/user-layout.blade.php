@@ -15,26 +15,54 @@
 </head>
 
 @php
-   $menus = [
-      [
-         'title' => 'Panduan SKP',
-         'isActive' => false,
-         'to' => '/',
-         'icon' => 'book',
+   $user = auth()->user();
+   $menus = match ($user->role) {
+      'mahasiswa' => [
+         [
+            'title' => 'Panduan SKP',
+            'isActive' => false,
+            'to' => '/',
+            'icon' => 'book',
+         ],
+         [
+            'title' => 'Upload Sertifikat',
+            'isActive' => false,
+            'to' => '/',
+            'icon' => 'up-arrow',
+         ],
+         [
+            'title' => 'Daftar Sertifikat',
+            'isActive' => false,
+            'to' => '/',
+            'icon' => 'hamburg',
+         ],
       ],
-      [
-         'title' => 'Upload Sertifikat',
-         'isActive' => false,
-         'to' => '/',
-         'icon' => 'up-arrow',
+      'admin' => [
+         [
+            'title' => 'Verifikasi SKP',
+            'isActive' => false,
+            'to' => '/',
+            'icon' => 'up-arrow',
+         ],
+         [
+            'title' => 'Kelola Akun',
+            'isActive' => false,
+            'to' => '/',
+            'icon' => 'user',
+         ],
       ],
-      [
-         'title' => 'Daftar Sertifikat',
-         'isActive' => false,
-         'to' => '/',
-         'icon' => 'hamburg',
+   };
+
+   $dashboard = match ($user->role) {
+      'mahasiswa' => [
+         'isActive' => request()->routeIs('home'),
+         'to' => route('home'),
       ],
-   ];
+      'admin' => [
+         'isActive' => request()->routeIs('admin.home'),
+         'to' => route('admin.home'),
+      ],
+   };
 @endphp
 
 <body>
@@ -47,15 +75,19 @@
                class="mt-3 flex w-4/5 items-center gap-2.5 rounded-xl bg-white/12 px-2.5 py-1.25 text-xs font-semibold text-white"
             >
                <span class="size-2.25 rounded-full bg-[#7ECBA3]"></span>
-               Mahasiswa
+               {{
+                  $user->role === 'mahasiswa'
+                     ? 'Mahasiswa'
+                     : 'Admin BEM'
+               }}
             </div>
          </div>
          <div class="flex flex-1 flex-col gap-4 px-2.25 py-4">
             <div class="px-1.75">
                <x-nav-link
-                  href="{{ route('home') }}"
+                  href="{{ $dashboard['to'] }}"
                   icon="dashboard"
-                  isActive="{{ request()->routeIs('home') }}"
+                  isActive="{{ $dashboard['isActive'] }}"
                   iconClass="size-4!"
                >
                   Dashboard
