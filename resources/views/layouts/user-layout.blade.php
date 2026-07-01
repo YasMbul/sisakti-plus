@@ -18,8 +18,8 @@
    $menus = [
       [
          'title' => 'Panduan SKP',
-         'isActive' => false,
-         'to' => '/',
+         'isActive' => request()->routeIs('panduan'),
+         'to' => route('panduan'),
          'icon' => 'book',
       ],
       [
