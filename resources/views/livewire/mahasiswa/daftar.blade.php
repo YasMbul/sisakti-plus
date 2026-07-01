@@ -16,7 +16,7 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="py-2 pl-11 pr-7 bg-stone-50 min-h-screen">
+    <div class="py-2 pl-11 pr-7 bg-stone-50 min-h-[79vh]">
         <div class="w-full my-2 font-sans space-y-6">
 
             {{-- Flash Alert --}}
@@ -196,4 +196,6 @@
             </div>
         </div>
     </div>
+{{-- Footer Dashboard --}}
+<x-footer/>
 </div>

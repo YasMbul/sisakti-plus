@@ -161,4 +161,8 @@
             </div>
         </div>
     </div>
+{{-- Footer Dashboard --}}
+<x-footer
+></x-footer>
 </div>
+

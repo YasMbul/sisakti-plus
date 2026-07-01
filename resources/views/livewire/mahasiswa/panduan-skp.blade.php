@@ -32,13 +32,6 @@
             </iframe>
         </div>
     </div>
-
-    {{-- Footer Dashboard --}}
-    <div class="py-1 pl-18 pb-24 pt-8 flex justify-between items-center bg-[#E8E4DC]">
-        <p class="text-sm text-slate-500">© 2026 SISAKTI+
-            <button class="text-[#1B4D3E] hover:text-[#153a2d] pl-180">Kebijakan Privasi</button>
-            <button class="text-[#1B4D3E] hover:text-[#153a2d] pl-10">Panduan Pengguna</button>
-        </p>
-    </div>
-</div>
+{{-- Footer Dashboard --}}
+<x-footer/>
 @endsection
