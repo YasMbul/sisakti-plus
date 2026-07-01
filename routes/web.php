@@ -53,13 +53,11 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::get('/upload-sertifikat/{id?}', \App\Livewire\Mahasiswa\Create::class)->name(
       'mahasiswa.upload',
    );
-   Route::get('/panduan', \App\Livewire\Mahasiswa\Daftar::class)->name(
-      'mahasiswa.panduan',
-   );
    Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name(
       'mahasiswa.daftar',
    );
    Route::get('/', \App\Livewire\Mahasiswa\Dashboard::class)->name('home',);
+   Route::view('/panduan', 'livewire.mahasiswa.panduan-skp')->name('mahasiswa.panduan');
 });
 
 Route::view('/login-view', 'login');
