@@ -41,7 +41,11 @@ class Dashboard extends Component
         ->count();
 
         // Target SKP for graduation
-        $targetSkp = 100;
+        $BidangPenalaranIlmiah = 25;
+        $BidangMinatdanBakat = 25;
+        $BidangOrganisasidanKepanitiaan = 25;
+        $BidangPengabdianpadaMasyarakat = 25;
+        $targetSkp = $BidangPenalaranIlmiah + $BidangMinatdanBakat + $BidangOrganisasidanKepanitiaan + $BidangPengabdianpadaMasyarakat;
         $progressPercent = min(100, ($approvedSkp / $targetSkp) * 100);
 
         // Get 3 recent uploads

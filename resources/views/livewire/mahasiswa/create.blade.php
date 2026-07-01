@@ -13,7 +13,12 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="py-2 pl-11 pr-7 bg-stone-50 ">
+    <div @class([
+            'py-2 pl-11 pr-7 bg-stone-50 ',
+            'w-full' => !$isEdit,
+            'w-2/3' => $isEdit,
+        ])>
+
         <div class="w-full my-2 font-sans w-full min-h-screen">
             
             {{-- Alert Success / Error --}}
