@@ -1,192 +1,121 @@
-<div>
+
+<div class="bg-background bg-[#E8E4DC]">
     {{-- Header Dashboard --}}
-    <div class="py-6 pl-11 pr-7 flex justify-between items-center bg-white border-b border-stone-200">
+    <div class="py-6 pl-11 pr-7 flex justify-between items-center bg-white">
         <div>
-            <h1 class="text-2xl font-bold text-stone-900">Dashboard Mahasiswa</h1>
-            <p class="text-sm text-stone-500">Selamat datang kembali, {{ $user->name }}!</p>
+            <h1 class="text-2xl font-bold text-judul">Dashboard</h1>
+            <p class="text-sm text-subtext-dark-grey">Mahasiswa Universitas Udayana</p>
         </div>
+
         <div class="flex items-center gap-4">
-            <div class="text-right hidden md:block">
-                <div class="text-xs font-bold text-stone-400 uppercase">Program Studi</div>
-                <div class="text-sm font-semibold text-stone-800">{{ $user->major->name ?? 'Belum Diatur' }}</div>
-            </div>
-            <div class="h-8 w-px bg-stone-200 hidden md:block"></div>
-            <a href="{{ route('mahasiswa.upload') }}" class="flex items-center gap-2 bg-teal-900 text-white px-4 py-2 rounded-lg font-medium hover:bg-teal-950 transition shadow-sm text-sm cursor-pointer">
-                ➕ Upload Sertifikat
-            </a>
+            {{-- Tombol Export Data --}}
+            <button class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition shadow-sm text-sm cursor-pointer">
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.6963 1.24463V16.9651M14.7705 8.31885L7.6963 1.24463L0.62207 8.31885" stroke="white" stroke-width="1.76" />
+                </svg>
+                Export Data
+            </button>
         </div>
     </div>
 
-    {{-- Main Content --}}
-    <div class="py-8 pl-11 pr-7 bg-stone-50 min-h-screen">
-        <div class="w-full max-w-6xl my-2 font-sans space-y-8">
-            
-            {{-- Grid 4 State Cards --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                {{-- Approved SKP --}}
-                <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+    {{-- main content --}}
+    <div class="py-7 pl-11 pr-7 bg-background bg-[#E8E4DC]">
+
+        {{-- Grid 4 State Cards --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <x-statecard
+                title="Total SKP"
+                value="{{ $approvedSkp }}"
+                label="{{ round($progressPercent) }}% Syarat SKP Terpenuhi"
+                theme="green" />
+            <x-statecard
+                title="Pending"
+                value="{{ $pendingSkp }}"
+                label="Menunggu Validasi"
+                theme="yellow" />
+            <x-statecard
+                title="Disetujui"
+                value="{{ $approvedCount }}"
+                label="Dari Pengajuan {{ $totalUploaded }} Sertifikat"
+                theme="blue" />
+            <x-statecard
+                title="Ditolak"
+                value="{{ $rejectedCount }}"
+                label="Perlu Diperbaiki"
+                theme="red" />
+        </div>
+
+        {{-- Progress per Katefori dan Sertif Terbaru --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:col-span-2">
+            <section class="w-xl h-xl rounded-[19px] p-6 shadow-sm ring-1 bg-white ring-slate-200/80">
+                <div class="flex items-center justify-between gap-4">
                     <div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-stone-400 uppercase tracking-wider">SKP Disetujui</span>
-                            <span class="text-xl">🟢</span>
-                        </div>
-                        <h2 class="text-3xl font-extrabold text-stone-900 mt-2">{{ $approvedSkp }}</h2>
+                        <p class="text-base font-semibold text-[#1A1714]">Progress per Kategori</p>
                     </div>
-                    <div class="text-xs text-emerald-700 font-semibold mt-4">
-                        Poin SKP Terverifikasi
-                    </div>
+                    <a href="#" class="text-sm font-medium text-[#1B4D3E] hover:text-[#153a2d]">Lihat detail →</a>
                 </div>
 
-                {{-- Pending SKP --}}
-                <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="mt-6 space-y-3">
+                    @foreach ([
+                        ['label' => 'Penalaran Ilmiah', 'value' => $valuePenalaranIlmiah, 'max' => $BidangPenalaranIlmiah, 'color' => 'bg-[#4A8C72]'],
+                        ['label' => 'Minat dan Bakat', 'value' => $valueMinatdanBakat, 'max' => $BidangMinatdanBakat, 'color' => 'bg-[#B8860B]'],
+                        ['label' => 'Organisasi dan Kepanitiaan', 'value' => $valueOrganisasidanKepanitiaan, 'max' => $BidangOrganisasidanKepanitiaan, 'color' => 'bg-[#3B82F6]'],
+                        ['label' => 'Pengabdian pada Masyarakat', 'value' => $valuePengabdianpadaMasyarakat, 'max' => $BidangPengabdianpadaMasyarakat, 'color' => 'bg-[#EF4444]'],
+                    ] as $item)
                     <div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-stone-400 uppercase tracking-wider">Menunggu Validasi</span>
-                            <span class="text-xl">🟡</span>
+                        <div class="flex items-center justify-between text-sm font-medium text-slate-700">
+                            <span>{{ $item['label'] }}</span>
+                            <span>{{ $item['value'] }} / {{ $item['max'] }}</span>
                         </div>
-                        <h2 class="text-3xl font-extrabold text-stone-900 mt-2">{{ $pendingSkp }}</h2>
+                        <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100">
+                            <div class="h-full rounded-full {{ $item['color'] }}" style="width: {{ min(100, ($item['value'] / $item['max']) * 100) }}%"></div>
+                        </div>
                     </div>
-                    <div class="text-xs text-amber-700 font-semibold mt-4">
-                        Menunggu Review BEM
+                    @endforeach
+                </div>
+            </section>
+
+            <section class="w-1.1xl h-xl rounded-[19px] p-6 shadow-sm ring-1 bg-white ring-slate-200/80">
+                <div class="flex items-center justify-between gap-4">
+                    <div>
+                        <p class="text-base font-semibold text-[#1A1714]">Sertifikat Terbaru</p>
                     </div>
+                    <a href="#" class="text-sm font-medium text-[#1B4D3E] hover:text-[#153a2d]">Lihat semua →</a>
                 </div>
 
-                {{-- Total Uploaded --}}
-                <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition">
-                    <div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-stone-400 uppercase tracking-wider">Total Sertifikat</span>
-                            <span class="text-xl">📄</span>
-                        </div>
-                        <h2 class="text-3xl font-extrabold text-stone-900 mt-2">{{ $totalUploaded }}</h2>
-                    </div>
-                    <div class="text-xs text-blue-700 font-semibold mt-4">
-                        Jumlah Pengajuan
-                    </div>
-                </div>
-
-                {{-- Progress Bar Card --}}
-                <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition">
-                    <div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-stone-400 uppercase tracking-wider">Pencapaian Target</span>
-                            <span class="text-xs font-bold text-stone-500">{{ $approvedSkp }}/{{ $targetSkp }} Poin</span>
-                        </div>
-                        <h2 class="text-3xl font-extrabold text-stone-900 mt-2">{{ round($progressPercent) }}%</h2>
-                    </div>
-                    <div class="mt-4">
-                        <div class="w-full bg-stone-100 rounded-full h-2">
-                            <div class="bg-teal-700 h-2 rounded-full transition-all duration-500" style="width: {{ $progressPercent }}%"></div>
-                        </div>
-                        <div class="text-[10px] text-stone-400 mt-1">Target kelulusan: 100 SKP</div>
-                    </div>
-                </div>
-
-            </div>
-
-            {{-- Split Content --}}
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
-                {{-- Recent Submissions --}}
-                <div class="lg:col-span-2 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm space-y-4">
-                    <div class="flex justify-between items-center pb-2 border-b border-stone-100">
-                        <h3 class="text-base font-bold text-stone-900">Pengajuan Terbaru</h3>
-                        <a href="{{ route('mahasiswa.daftar') }}" class="text-xs font-semibold text-teal-700 hover:text-teal-900 transition">
-                            Lihat Semua &rarr;
-                        </a>
-                    </div>
-
-                    <div class="space-y-3">
-                        @forelse($recentSkps as $skp)
-                            <div class="flex items-center justify-between p-4 border border-stone-200 rounded-xl hover:bg-stone-50 transition">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-xl bg-stone-100 flex items-center justify-center text-lg">
-                                        📄
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-bold text-stone-950">{{ $skp->name }}</h4>
-                                        <p class="text-xs text-stone-400 mt-0.5">
-                                            {{ $skp->skpDetail->subUnsur->name ?? '-' }} &mdash; {{ $skp->location }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="text-xs font-bold text-teal-800">
-                                        +{{ $skp->skpDetail->bobot ?? 0 }} SKP
-                                    </span>
-                                    @if($skp->status === 'approved')
-                                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">
-                                            Disetujui
-                                        </span>
-                                    @else
-                                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">
-                                            Menunggu
-                                        </span>
-                                    @endif
-                                </div>
+                <div class="mt-6 divide-y divide-slate-200/70">
+                    @forelse ($recentSkps as $skp)
+                        @php
+                            $statusMap = [
+                                'approved' => ['label' => 'Disetujui', 'badge' => 'bg-emerald-100 text-emerald-800'],
+                                'pending'  => ['label' => 'Pending', 'badge' => 'bg-amber-100 text-amber-800'],
+                                'rejected' => ['label' => 'Ditolak', 'badge' => 'bg-rose-100 text-rose-800'],
+                            ];
+                            $statusInfo = $statusMap[$skp->status] ?? ['label' => ucfirst($skp->status), 'badge' => 'bg-slate-100 text-slate-800'];
+                            $bobot = $skp->skpDetail->bobot ?? 0;
+                            $skpLabel = $skp->status === 'rejected' ? '—' : ($skp->status === 'approved' ? '+' . $bobot . ' SKP' : $bobot . ' SKP');
+                        @endphp
+                        <div class="flex items-center justify-between gap-4 py-4">
+                            <div>
+                                <p class="font-medium text-slate-900">{{ $skp->name }}</p>
                             </div>
-                        @empty
-                            <div class="py-8 text-center text-stone-400 text-sm">
-                                Belum ada sertifikat yang diupload. <br>
-                                <a href="{{ route('mahasiswa.upload') }}" class="text-teal-700 hover:underline font-semibold mt-2 inline-block">Mulai Upload Sekarang</a>
+                            <div class="flex items-center gap-4">
+                                <p class="text-sm text-slate-500">{{ $skpLabel }}</p>
+                                <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $statusInfo['badge'] }}">
+                                    {{ $statusInfo['label'] }}
+                                </span>
                             </div>
-                        @endforelse
-                    </div>
-                </div>
-
-                {{-- Guidance Card --}}
-                <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm space-y-4">
-                    <div class="pb-2 border-b border-stone-100">
-                        <h3 class="text-base font-bold text-stone-900">Panduan Satuan Kredit Prestasi (SKP)</h3>
-                    </div>
-                    
-                    <div class="space-y-4 text-xs text-stone-600 leading-relaxed">
-                        <p>SKP wajib dikumpulkan oleh seluruh mahasiswa sebagai salah satu prasyarat kelulusan (Sidang Tugas Akhir / Skripsi).</p>
-                        
-                        <div class="space-y-2">
-                            <div class="font-bold text-stone-800 uppercase tracking-wider text-[10px]">Ketentuan Umum:</div>
-                            <ul class="list-disc pl-4 space-y-1">
-                                <li><strong>Target Kelulusan:</strong> Min. 100 Poin SKP.</li>
-                                <li>Setiap pengajuan sertifikat wajib melampirkan berkas bukti asli berupa file <strong>PDF</strong>.</li>
-                                <li>Semua berkas akan divalidasi oleh Badan Eksekutif Mahasiswa (BEM) Fakultas.</li>
-                            </ul>
                         </div>
-
-                        <div class="space-y-2">
-                            <div class="font-bold text-stone-800 uppercase tracking-wider text-[10px]">Bobot Nilai SKP (Contoh):</div>
-                            <table class="w-full text-left border-collapse mt-1">
-                                <thead>
-                                    <tr class="bg-stone-50 text-stone-500 font-bold border-b border-stone-100">
-                                        <th class="py-1 px-2">Tingkat Kegiatan</th>
-                                        <th class="py-1 px-2 text-right">Bobot</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-stone-50">
-                                    <tr>
-                                        <td class="py-1 px-2">Fakultas / Prodi</td>
-                                        <td class="py-1 px-2 text-right">1 - 2 SKP</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1 px-2">Universitas / Regional</td>
-                                        <td class="py-1 px-2 text-right">2 - 3 SKP</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1 px-2">Nasional</td>
-                                        <td class="py-1 px-2 text-right">3 - 4 SKP</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1 px-2">Internasional</td>
-                                        <td class="py-1 px-2 text-right">5+ SKP</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="py-6 text-sm text-center text-slate-400">Belum ada sertifikat yang diunggah.</p>
+                    @endforelse
                 </div>
-
-            </div>
-
+            </section>
         </div>
     </div>
+
+{{-- Footer Dashboard --}}
+<x-footer
+mt="mt-12"
+/>
 </div>
