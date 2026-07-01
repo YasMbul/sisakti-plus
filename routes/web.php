@@ -34,7 +34,7 @@ Route::middleware(['auth', 'role:admin'])
    ->prefix('admin')
    ->name('admin.')
    ->group(function () {
-      Route::view('/', 'admin.dashboard')->name('home');
+      Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('home');
    });
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
