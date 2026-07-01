@@ -1,10 +1,3 @@
-
-@extends('layouts.user-layout')
-
-@section('title', 'Dashboard Mahasiswa')
-{{-- @section('page-heading', 'Dashboard Mahasiswa') --}}
-
-@section('content')
 <div>
     {{-- Header Dashboard --}}
     <div class="py-6 pl-11 pr-7 flex justify-between items-center bg-white border-b border-stone-200">
