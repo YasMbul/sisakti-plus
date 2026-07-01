@@ -12,7 +12,7 @@
     <body class="min-h-screen bg-slate-50 text-slate-900">
         <div class="min-h-screen md:flex">
             <aside class="hidden md:flex md:w-[228px] flex-col bg-[#102A1F] text-white border-r border-white/10">
-                @include('layouts.sidebar')
+                @include('layouts.user-layout')
             </aside>
 
             <div class="flex-1 min-h-screen flex flex-col">

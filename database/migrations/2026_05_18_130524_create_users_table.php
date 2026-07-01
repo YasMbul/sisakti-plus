@@ -13,7 +13,7 @@ return new class extends Migration {
       Schema::create('users', function (Blueprint $table) {
          $table->id();
          $table->string('name');
-         $table->string('picture');
+         $table->string('picture')->nullable();
          $table->string('nim')->unique();
          $table->string('password');
          $table->enum('role', ['admin', 'mahasiswa'])->default('mahasiswa');
