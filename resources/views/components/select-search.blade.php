@@ -4,6 +4,7 @@
     'options' => [],
     'selected' => null,
     'placeholder' => 'Pilih...',
+    'classLabel' => '',
 ])
 
 @php
@@ -33,7 +34,7 @@
     class="relative"
 >
     @if($label)
-        <label for="{{ $name }}" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
+        <label for="{{ $name }}" @class (['font-semibold block', $classLabel])>
             {{ $label }}
         </label>
     @endif

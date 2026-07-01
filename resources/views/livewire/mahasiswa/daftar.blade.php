@@ -67,6 +67,7 @@
                         class="px-4 py-2 text-sm bg-stone-50 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 transition"
                     >
                         <option value="">Semua Status</option>
+                        <option value="rejected">Ditolak</option>
                         <option value="pending">Menunggu</option>
                         <option value="approved">Disetujui</option>
                     </select>
@@ -99,7 +100,7 @@
                                     
                                     {{-- Kategori SKP --}}
                                     <td class="px-6 py-4 max-w-xs">
-                                        <span class="px-2 py-1 bg-stone-100 text-stone-700 rounded-md text-xs font-medium block truncate" title="{{ $skp->skpDetail->name ?? '-' }}">
+                                        <span class="py-1 text-stone-700 rounded-md text-xs font-medium block truncate" title="{{ $skp->skpDetail->name ?? '-' }}">
                                             {{ $skp->skpDetail->subUnsur->name ?? '-' }}
                                         </span>
                                         <span class="text-[10px] text-stone-400 mt-1 block">Tingkat: {{ $skp->skpDetail->tingkat->name ?? '-' }}</span>

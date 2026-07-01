@@ -33,18 +33,14 @@
                     
                     {{-- Nama Kegiatan --}}
                     <div class="flex flex-col gap-1.5">
-                        <label for="nama_kegiatan" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                            Nama Kegiatan
-                        </label>
-                        <input 
-                            type="text" 
-                            id="nama_kegiatan"
+                        <x-input
+                            name="Nama Kegiatan"
+                            type="text"
+                            label="Nama Kegiatan"
                             wire:model="nama_kegiatan"
+                            border-class="border-gray-300 focus:border-gray-500"
                             placeholder="Seminar AI & Machine Learning 2026"
-                            class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('nama_kegiatan') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
                         />
-                        <span class="text-stone-400 text-[11px]">Tuliskan nama lengkap kegiatan.</span>
-                        @error('nama_kegiatan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     {{-- Kategori SKP --}}
@@ -62,64 +58,45 @@
                     {{-- Tempat & Semester --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-1.5">
-                            <label for="tempat_kegiatan" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                                Tempat Kegiatan
-                            </label>
-                            <input 
-                                type="text" 
-                                id="tempat_kegiatan"
+                            <x-input
+                                name="tempat kegiatan"
+                                type="text"
+                                label="Tempat Kegiatan"
                                 wire:model="tempat_kegiatan"
-                                placeholder="Tempat Kegiatan (misal: Aula Udayana)"
-                                class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('tempat_kegiatan') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
+                                border-class="border-gray-300 focus:border-gray-500"
+                                placeholder="Universitas Indonesia, Depok"
                             />
-                            @error('tempat_kegiatan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="flex flex-col gap-1.5">
-                            <label for="semester" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                                Semester Kegiatan
-                            </label>
-                            <select 
-                                id="semester"
+                            <x-select
+                                name="semester"
+                                label="Semester Kegiatan"
+                                placeholder="Pilih Semester"
+                                :options="$semesters"
                                 wire:model="semester"
-                                class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('semester') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
-                            >
-                                <option value="">Pilih Semester</option>
-                                @foreach($semesters as $sem)
-                                    <option value="{{ $sem->id }}">{{ $sem->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('semester') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                placeholder="Pilih Semester"
+                            />
                         </div>
                     </div>
 
                     {{-- Tanggal Mulai & Selesai --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col gap-1.5">
-                            <label for="tgl_mulai" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                                Tanggal Dimulai Kegiatan
-                            </label>
-                            <input 
-                                type="date" 
-                                id="tgl_mulai"
-                                wire:model="tgl_mulai"
-                                class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('tgl_mulai') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
-                            />
-                            @error('tgl_mulai') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        </div>
+                        <x-input
+                            name="tgl_mulai"
+                            type="date"
+                            label="Tanggal Dimulai Kegiatan"
+                            wire:model="tgl_mulai"
+                            border-class="border-gray-300 focus:border-gray-500"
+                        />
 
-                        <div class="flex flex-col gap-1.5">
-                            <label for="tgl_selesai" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                                Tanggal Selesai Kegiatan
-                            </label>
-                            <input 
-                                type="date" 
-                                id="tgl_selesai"
-                                wire:model="tgl_selesai"
-                                class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('tgl_selesai') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
-                            />
-                            @error('tgl_selesai') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        </div>
+                        <x-input
+                            name="tgl_selesai"
+                            type="date"
+                            label="Tanggal Selesai Kegiatan"
+                            wire:model="tgl_selesai"
+                            border-class="border-gray-300 focus:border-gray-500"
+                        />
                     </div>
 
                     {{-- Lampiran Sertifikat --}}
