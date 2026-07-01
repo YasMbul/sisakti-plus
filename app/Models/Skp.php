@@ -40,4 +40,9 @@ class Skp extends Model
    {
       return $this->hasMany(Comment::class)->whereNull('parent_id')->with('replies.user');
    }
+
+   protected $casts = [
+      'start_date' => 'date',
+      'end_date' => 'date',
+   ];
 }

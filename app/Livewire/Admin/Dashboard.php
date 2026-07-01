@@ -5,13 +5,17 @@ namespace App\Livewire\Admin;
 use App\Models\Skp;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 
 #[Layout('layouts.user-layout')]
 #[Title('Dashboard')]
 class Dashboard extends Component
 {
-   public function acceptSkp($skpId)
+   public bool $showRejectModal = false;
+   public ?int $rejectSkpId = null;
+
+   public function acceptSkp(int $skpId)
    {
       $skp = Skp::findOrFail($skpId);
 
@@ -22,6 +26,35 @@ class Dashboard extends Component
       $skp->update(['status' => 'approved']);
 
       return redirect()->back()->with('success', 'SKP berhasil disetujui.');
+   }
+
+   public function openRejectModal(int $skpId)
+   {
+      $this->rejectSkpId = $skpId;
+      $this->showRejectModal = true;
+   }
+
+   #[On('closeChat')]
+   public function closeRejectModal()
+   {
+      $this->showRejectModal = false;
+      $this->rejectSkpId = null;
+   }
+
+   #[On('reject-data')]
+   public function rejectSkp()
+   {
+      $skp = Skp::findOrFail($this->rejectSkpId);
+
+      if ($skp->status !== 'pending') {
+         $this->closeRejectModal();
+         return;
+      }
+
+      $skp->update(['status' => 'rejected']);
+
+      $this->closeRejectModal();
+      $this->dispatch('skp-rejected');
    }
 
    public function render()
