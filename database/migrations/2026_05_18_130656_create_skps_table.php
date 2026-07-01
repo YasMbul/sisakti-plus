@@ -17,7 +17,7 @@ return new class extends Migration {
          $table->date('start_date');
          $table->date('end_date');
          $table->string('certificate');
-         $table->enum('status', ['pending', 'approved']);
+         $table->enum('status', ['rejected', 'pending', 'approved']);
          $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
          $table->foreignId('semester_id')->constrained('semesters')->cascadeOnDelete();
          $table->foreignId('skp_detail_id')->constrained('skp_details')->cascadeOnDelete();
