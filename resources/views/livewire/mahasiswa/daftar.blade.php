@@ -5,7 +5,17 @@
             <h1 class="text-2xl font-bold text-stone-900">Daftar Sertifikat</h1>
             <p class="text-sm text-stone-500">Kelola riwayat sertifikat SKP yang telah Anda unggah.</p>
         </div>
-        <div>
+        <div class="flex items-center gap-3">
+            {{-- Tombol Download Kartu SKP --}}
+            <a href="{{ route('mahasiswa.kartu-skp.download') }}"
+            target="_blank"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-teal-900 hover:bg-teal-50 text-teal-900 text-sm font-semibold rounded-lg transition duration-200">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                Cetak Kartu SKP
+            </a>
+
             <a href="{{ route('mahasiswa.upload') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-teal-900 hover:bg-teal-950 text-white text-sm font-semibold rounded-lg transition duration-200 shadow-md">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
