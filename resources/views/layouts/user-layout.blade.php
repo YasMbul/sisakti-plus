@@ -40,14 +40,14 @@
       'admin' => [
          [
             'title' => 'Verifikasi SKP',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('admin.verifikasi-skp*'),
+            'to' => route('admin.verifikasi-skp'),
             'icon' => 'up-arrow',
          ],
          [
             'title' => 'Kelola Akun',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('admin.kelola-akun*'),
+            'to' => route('admin.kelola-akun'),
             'icon' => 'user',
          ],
       ],
