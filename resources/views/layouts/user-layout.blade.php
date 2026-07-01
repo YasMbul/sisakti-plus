@@ -15,26 +15,54 @@
 </head>
 
 @php
-   $menus = [
-      [
-         'title' => 'Panduan SKP',
-         'isActive' => false,
-         'to' => '/',
-         'icon' => 'book',
+   $user = auth()->user();
+   $menus = match ($user->role) {
+      'mahasiswa' => [
+         [
+            'title' => 'Panduan SKP',
+            'isActive' => request()->routeIs('home'),
+            'to' => route('home'),
+            'icon' => 'book',
+         ],
+         [
+            'title' => 'Upload Sertifikat',
+            'isActive' => request()->routeIs('mahasiswa.upload'),
+            'to' => route('mahasiswa.upload'),
+            'icon' => 'up-arrow',
+         ],
+         [
+            'title' => 'Daftar Sertifikat',
+            'isActive' => request()->routeIs('mahasiswa.daftar'),
+            'to' => route('mahasiswa.daftar'),
+            'icon' => 'hamburg',
+         ],
       ],
-      [
-         'title' => 'Upload Sertifikat',
-         'isActive' => false,
-         'to' => '/',
-         'icon' => 'up-arrow',
+      'admin' => [
+         [
+            'title' => 'Verifikasi SKP',
+            'isActive' => request()->routeIs('admin.verifikasi-skp*'),
+            'to' => route('admin.verifikasi-skp'),
+            'icon' => 'up-arrow',
+         ],
+         [
+            'title' => 'Kelola Akun',
+            'isActive' => request()->routeIs('admin.kelola-akun*'),
+            'to' => route('admin.kelola-akun'),
+            'icon' => 'user',
+         ],
       ],
-      [
-         'title' => 'Daftar Sertifikat',
-         'isActive' => false,
-         'to' => '/',
-         'icon' => 'hamburg',
+   };
+
+   $dashboard = match ($user->role) {
+      'mahasiswa' => [
+         'isActive' => request()->routeIs('home'),
+         'to' => route('home'),
       ],
-   ];
+      'admin' => [
+         'isActive' => request()->routeIs('admin.home'),
+         'to' => route('admin.home'),
+      ],
+   };
 @endphp
 
 <body>
