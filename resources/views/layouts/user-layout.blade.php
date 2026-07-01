@@ -130,7 +130,7 @@
             </form>
          </div>
       </nav>
-      <main class="ml-58">
+      <main class="bg-background ml-58">
          @if (isset($slot))
             {{ $slot }}
          @else

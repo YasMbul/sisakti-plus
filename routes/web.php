@@ -43,7 +43,7 @@ Route::middleware(['auth', 'role:admin'])
       Route::get('/verifikasi-skp', \App\Livewire\Admin\VerifikasiSkp\Index::class)->name(
          'verifikasi-skp',
       );
-      Route::get('/verifikasi-skp/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name(
+      Route::get('/verifikasi-skp/{id}/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name(
          'verifikasi-skp.show',
       );
    });
