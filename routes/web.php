@@ -35,8 +35,10 @@ Route::middleware(['auth', 'role:admin'])
    ->name('admin.')
    ->group(function () {
       Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('home');
-      Route::get('/kelola-akun', \App\Livewire\Admin\KelolaAkun::class)->name('kelola-akun');
-      Route::get('/verifikasi-skp', \App\Livewire\Admin\VerifikasiSkp::class)->name('verifikasi-skp');
+      Route::get('/kelola-akun', \App\Livewire\Admin\KelolaAkun\Index::class)->name('kelola-akun');
+      Route::get('/kelola-akun/create', \App\Livewire\Admin\KelolaAkun\Create::class)->name('create');
+      Route::get('/verifikasi-skp', \App\Livewire\Admin\VerifikasiSkp\Index::class)->name('verifikasi-skp');
+      Route::get('/verifikasi-skp/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name('show');
       });
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
