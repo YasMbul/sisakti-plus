@@ -1,6 +1,5 @@
 
 <?php
-
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\MajorController;
@@ -38,19 +37,32 @@ Route::middleware(['auth', 'role:admin'])
    ->group(function () {
       Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('home');
       Route::get('/kelola-akun', \App\Livewire\Admin\KelolaAkun\Index::class)->name('kelola-akun');
-      Route::get('/kelola-akun/create', \App\Livewire\Admin\KelolaAkun\Create::class)->name('create');
-      Route::get('/verifikasi-skp', \App\Livewire\Admin\VerifikasiSkp\Index::class)->name('verifikasi-skp');
-      Route::get('/verifikasi-skp/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name('show');
-      });
+      Route::get('/kelola-akun/create', \App\Livewire\Admin\KelolaAkun\Create::class)->name(
+         'kelola-akun.create',
+      );
+      Route::get('/verifikasi-skp', \App\Livewire\Admin\VerifikasiSkp\Index::class)->name(
+         'verifikasi-skp',
+      );
+      Route::get('/verifikasi-skp/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name(
+         'verifikasi-skp.show',
+      );
+   });
 
 // Route Mahasiswa
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::get('/', \App\Livewire\Mahasiswa\Dashboard::class)->name('home');
-   Route::get('/upload-sertifikat/{id?}', \App\Livewire\Mahasiswa\Create::class)->name('mahasiswa.upload');
-   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name('mahasiswa.daftar');
+   Route::get('/upload-sertifikat/{id?}', \App\Livewire\Mahasiswa\Create::class)->name(
+      'mahasiswa.upload',
+   );
+   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name(
+      'mahasiswa.daftar',
+   );
    Route::view('/', 'user.dashboard')->name('home');
-   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\DaftarSertifikat\Index::class)->name('daftar-sertifikat');
+   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\DaftarSertifikat\Index::class)->name(
+      'daftar-sertifikat',
+   );
 });
 
 Route::view('/login-view', 'login');
 Route::view('/tes', 'tes')->name('tes');
+
