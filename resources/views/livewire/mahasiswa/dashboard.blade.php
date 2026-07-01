@@ -1,9 +1,4 @@
-@extends('layouts.user-layout')
 
-@section('title', 'Dashboard Mahasiswa')
-{{-- @section('page-heading', 'Dashboard Mahasiswa') --}}
-
-@section('content')
 <div>
     {{-- Header Dashboard --}}
     <div class="py-6 pl-11 pr-7 flex justify-between items-center bg-white">
@@ -36,25 +31,24 @@
 
         {{-- Grid 4 State Cards --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {{-- disini taruh foreachnya --}}
             <x-statecard
                 title="Total SKP"
-                value="82"
-                label="82% Syarat SKP Terpenuhi"
+                value="{{ $approvedSkp }}"
+                label="{{ round($progressPercent) }}% Syarat SKP Terpenuhi"
                 theme="green" />
             <x-statecard
                 title="Pending"
-                value="3"
+                value="{{ $pendingSkp }}"
                 label="Menunggu Validasi"
                 theme="yellow" />
             <x-statecard
                 title="Disetujui"
-                value="14"
-                label="Dari Pengajuan 19 Sertifikat"
+                value="{{ $approvedCount }}"
+                label="Dari Pengajuan {{ $totalUploaded }} Sertifikat"
                 theme="blue" />
             <x-statecard
                 title="Ditolak"
-                value="2"
+                value="{{ $rejectedCount }}"
                 label="Perlu Diperbaiki"
                 theme="red" />
         </div>
@@ -98,23 +92,31 @@
                 </div>
 
                 <div class="mt-6 divide-y divide-slate-200/70">
-                    @foreach ([
-                    ['title' => 'PKKMB Universitas', 'status' => 'Disetujui', 'skp' => '+1 SKP', 'badge' => 'bg-emerald-100 text-emerald-800'],
-                    ['title' => 'Seminar AI & ML', 'status' => 'Disetujui', 'skp' => '+3 SKP', 'badge' => 'bg-emerald-100 text-emerald-800'],
-                    ['title' => 'Panitia Dies Natalis', 'status' => 'Pending', 'skp' => '5 SKP', 'badge' => 'bg-amber-100 text-amber-800'],
-                    ['title' => 'Lomba Hackathon', 'status' => 'Pending', 'skp' => '8 SKP', 'badge' => 'bg-amber-100 text-amber-800'],
-                    ['title' => 'Workshop Desain UI', 'status' => 'Ditolak', 'skp' => '—', 'badge' => 'bg-rose-100 text-rose-800'],
-                    ] as $item)
-                    <div class="flex items-center justify-between gap-4 py-4">
-                        <div>
-                            <p class="font-medium text-slate-900">{{ $item['title'] }}</p>
+                    @forelse ($recentSkps as $skp)
+                        @php
+                            $statusMap = [
+                                'approved' => ['label' => 'Disetujui', 'badge' => 'bg-emerald-100 text-emerald-800'],
+                                'pending'  => ['label' => 'Pending', 'badge' => 'bg-amber-100 text-amber-800'],
+                                'rejected' => ['label' => 'Ditolak', 'badge' => 'bg-rose-100 text-rose-800'],
+                            ];
+                            $statusInfo = $statusMap[$skp->status] ?? ['label' => ucfirst($skp->status), 'badge' => 'bg-slate-100 text-slate-800'];
+                            $bobot = $skp->skpDetail->bobot ?? 0;
+                            $skpLabel = $skp->status === 'rejected' ? '—' : ($skp->status === 'approved' ? '+' . $bobot . ' SKP' : $bobot . ' SKP');
+                        @endphp
+                        <div class="flex items-center justify-between gap-4 py-4">
+                            <div>
+                                <p class="font-medium text-slate-900">{{ $skp->name }}</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <p class="text-sm text-slate-500">{{ $skpLabel }}</p>
+                                <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $statusInfo['badge'] }}">
+                                    {{ $statusInfo['label'] }}
+                                </span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <p class="text-sm text-slate-500">{{ $item['skp'] }}</p>
-                            <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $item['badge'] }}">{{ $item['status'] }}</span>
-                        </div>
-                    </div>
-                    @endforeach
+                    @empty
+                        <p class="py-6 text-sm text-center text-slate-400">Belum ada sertifikat yang diunggah.</p>
+                    @endforelse
                 </div>
             </section>
         </div>
@@ -152,4 +154,3 @@
         </p>
     </div>
 </div>
-@endsection
