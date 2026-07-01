@@ -122,17 +122,9 @@
                   </div>
                </div>
             @empty
-               <div class="flex w-full flex-col items-center justify-center px-4 py-16 text-center">
-                  <div class="mb-4 rounded-full bg-slate-50 p-4">
-                     <x-icons.file class="fill-subtext-light-grey size-10!" />
-                  </div>
-
-                  <h3 class="mb-1 text-base font-bold text-slate-700">
-                     Belum Ada Sertifikat yang berstatus "pending"
-                  </h3>
-
-                  <p class="mb-6 max-w-sm text-sm text-slate-500">Belum ada mahasiswa yang menginputkan Sertifikat, atau Sertifikat yang Anda cari tidak ditemukan dalam database.</p>
-               </div>
+               <x-empty-table 
+                title="Belum Ada Sertifikat yang berstatus 'pending'"
+                message="Belum ada mahasiswa yang menginputkan Sertifikat, atau Sertifikat yang Anda cari tidak ditemukan dalam database."/>
             @endforelse
          </div>
       </div>
