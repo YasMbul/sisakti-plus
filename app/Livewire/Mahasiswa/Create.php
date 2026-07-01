@@ -51,7 +51,7 @@ class Create extends Component
             $this->semester = $skp->semester_id;
             
             if ($skp->skpDetail) {
-                $this->kategori_skp = $skp->skpDetail->sub_unsur_id;
+                $this->kategori_skp = $skp->skpDetail;
                 $this->tingkat_kegiatan = $skp->skpDetail->tingkat_id;
             }
             
@@ -140,7 +140,7 @@ class Create extends Component
     public function render()
     {
         return view('livewire.mahasiswa.create', [
-            'subUnsurs' => SubUnsur::with('unsur')->get(),
+            'detail' => SkpDetail::with('unsur')->get(),
             'semesters' => Semester::orderBy('name', 'desc')->get(),
             'tingkats' => Tingkat::all(),
         ]);

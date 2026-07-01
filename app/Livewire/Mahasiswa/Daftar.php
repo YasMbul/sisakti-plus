@@ -39,7 +39,7 @@ class Daftar extends Component
     public function render()
     {
         $query = Skp::where('user_id', auth()->id())
-            ->with(['semester', 'skpDetail.subUnsur', 'skpDetail.tingkat', 'skpDetail.partisipasi']);
+            ->with(['semester', 'skpDetail', 'skpDetail.tingkat', 'skpDetail.partisipasi']);
 
         if (!empty($this->search)) {
             $query->where('name', 'like', '%' . $this->search . '%');

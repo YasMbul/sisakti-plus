@@ -13,7 +13,7 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="py-8 pl-11 pr-7 bg-stone-50 min-h-screen">
+    <div class="py-8 pl-11 pr-7 bg-stone-50">
         <div class="w-full max-w-4xl my-2 font-sans">
             
             {{-- Alert Success / Error --}}
@@ -47,23 +47,79 @@
                         @error('nama_kegiatan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
-                    {{-- Kategori SKP --}}
-                    <div class="flex flex-col gap-1.5">
-                        <label for="kategori_skp" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                            Kategori SKP
-                        </label>
-                        <select 
-                            id="kategori_skp"
-                            wire:model="kategori_skp"
-                            class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('kategori_skp') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
+            {{-- Kategori SKP --}}
+            <div class="flex flex-col gap-1.5" x-data="{
+                    open: false,
+                    search: '',
+                    selectedLabel: @entangle('kategori_skp').live ? '{{ optional($detail->firstWhere('id', $kategori_skp))->name }}' : '',
+                    options: {{ $detail->map(fn($sub) => ['id' => $sub->id, 'label' => $sub->unsur->name . ' - ' . $sub->name])->values() }},
+                    get filtered() {
+                        if (this.search === '') return this.options;
+                        return this.options.filter(o => o.label.toLowerCase().includes(this.search.toLowerCase()));
+                    },
+                    select(option) {
+                        $wire.set('kategori_skp', option.id);
+                        this.selectedLabel = option.label;
+                        this.search = '';
+                        this.open = false;
+                    }
+                }" @click.outside="open = false" class="relative">
+
+                <label for="kategori_skp" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
+                    Kategori SKP
+                </label>
+
+                {{-- Hidden input untuk validasi Livewire tetap jalan --}}
+                <input type="hidden" wire:model="kategori_skp">
+
+                {{-- Trigger / display box --}}
+                <button
+                    type="button"
+                    @click="open = !open"
+                    class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border text-left @error('kategori_skp') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150 flex justify-between items-center"
+                >
+                    <span x-text="selectedLabel || 'Pilih Kategori SKP'" :class="selectedLabel ? 'text-stone-900' : 'text-stone-400'"></span>
+                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                {{-- Dropdown panel --}}
+                <div
+                    x-show="open"
+                    x-transition
+                    class="z-50 mt-1 w-full bg-white border border-stone-200 rounded-lg shadow-lg max-h-64 overflow-hidden flex flex-col"
+                    style="display: none;"
+                >
+                    {{-- Search box --}}
+                    <div class="p-2 border-b border-stone-100">
+                        <input
+                            type="text"
+                            x-model="search"
+                            x-ref="searchInput"
+                            placeholder="Cari kategori..."
+                            class="w-full px-3 py-1.5 text-sm border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-teal-700"
+                            @click.stop
                         >
-                            <option value="">Pilih Kategori SKP</option>
-                            @foreach($subUnsurs as $sub)
-                                <option value="{{ $sub->id }}">{{ $sub->unsur->name }} &mdash; {{ $sub->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('kategori_skp') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
+
+                    {{-- Options list --}}
+                    <ul class="overflow-y-auto">
+                        <template x-for="option in filtered" :key="option.id">
+                            <li
+                                @click="select(option)"
+                                class="px-4 py-2 text-sm text-stone-700 hover:bg-teal-50 cursor-pointer"
+                                x-text="option.label"
+                            ></li>
+                        </template>
+                        <li x-show="filtered.length === 0" class="px-4 py-2 text-sm text-stone-400">
+                            Tidak ada hasil
+                        </li>
+                    </ul>
+                </div>
+
+                @error('kategori_skp') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+            </div>
 
                     {{-- Tempat & Semester --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -126,24 +182,6 @@
                             />
                             @error('tgl_selesai') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
-                    </div>
-
-                    {{-- Tingkat Kegiatan --}}
-                    <div class="flex flex-col gap-1.5">
-                        <label for="tingkat_kegiatan" class="text-stone-600 text-[11px] font-bold tracking-wide uppercase">
-                            Tingkat Kegiatan
-                        </label>
-                        <select 
-                            id="tingkat_kegiatan"
-                            wire:model="tingkat_kegiatan"
-                            class="w-full px-4 py-2.5 bg-white text-stone-900 text-sm rounded-lg border @error('tingkat_kegiatan') border-red-500 focus:ring-red-500 @else border-stone-300 focus:ring-teal-700 @enderror focus:outline-none focus:ring-2 transition duration-150"
-                        >
-                            <option value="">Pilih Tingkat Kegiatan</option>
-                            @foreach($tingkats as $ting)
-                                <option value="{{ $ting->id }}">{{ $ting->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('tingkat_kegiatan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     {{-- Lampiran Sertifikat --}}
