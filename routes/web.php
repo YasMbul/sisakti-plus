@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\FacultyController;
@@ -30,6 +31,7 @@ Route::controller(AuthController::class)->group(function () {
    Route::post('/logout', 'logout')->middleware('auth')->name('logout');
 });
 
+// Route Admin
 Route::middleware(['auth', 'role:admin'])
    ->prefix('admin')
    ->name('admin.')
@@ -41,10 +43,14 @@ Route::middleware(['auth', 'role:admin'])
       Route::get('/verifikasi-skp/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name('show');
       });
 
+// Route Mahasiswa
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
+   Route::get('/', \App\Livewire\Mahasiswa\Dashboard::class)->name('home');
+   Route::get('/upload-sertifikat/{id?}', \App\Livewire\Mahasiswa\Create::class)->name('mahasiswa.upload');
+   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name('mahasiswa.daftar');
    Route::view('/', 'user.dashboard')->name('home');
+   Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\DaftarSertifikat\Index::class)->name('daftar-sertifikat');
 });
 
-
-Route::view('/login', 'login')->name('home');
+Route::view('/login-view', 'login');
 Route::view('/tes', 'tes')->name('tes');
