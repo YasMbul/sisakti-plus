@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
          MajorSeeder::class,
          SemesterSeeder::class,
          UserSeeder::class,
+         SkpDetailSeeder::class,
       ]);
    }
 }
