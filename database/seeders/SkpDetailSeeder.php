@@ -10,59 +10,87 @@ class SkpDetailSeeder extends Seeder
    public function run(): void
    {
       $unsurs = DB::table('unsurs')->get();
-      $tingkats = DB::table('tingkats')->pluck('id');
-      $partisipasis = DB::table('partisipasis')->pluck('id');
+      $tingkats = DB::table('tingkats')->get();
+      $partisipasis = DB::table('partisipasis')->get();
 
-      if ($unsurs->isEmpty() || $tingkats->isEmpty() || $partisipasis->isEmpty()) {
+      if ($unsurs->isEmpty()) {
          $this->command->warn(
             'Pastikan UnsurSeeder, TingkatSeeder, PartisipasiSeeder sudah dijalankan dulu.',
          );
          return;
       }
 
-      // Sub unsurs di-group berdasarkan unsur_id
       $subUnsursGrouped = DB::table('sub_unsurs')->get()->groupBy('unsur_id');
+
+      $tingkatNames = $tingkats->pluck('name', 'id');
+      $partisipasiNames = $partisipasis->pluck('name', 'id');
+
+      $tingkatIds = $tingkats->pluck('id');
+      $partisipasiIds = $partisipasis->pluck('id');
 
       $totalTarget = 100;
       $unsurCount = $unsurs->count();
-
-      // Bagi 100 merata ke tiap unsur, sisa dibagikan ke unsur pertama
       $basePerUnsur = intdiv($totalTarget, $unsurCount);
       $remainder = $totalTarget % $unsurCount;
 
       $skpDetails = [];
-      $counter = 1;
+      $usedNames = [];
+      $counter = 0;
+      $maxAttempts = 1000;
 
       foreach ($unsurs as $index => $unsur) {
          $jumlahPerUnsur = $basePerUnsur + ($index < $remainder ? 1 : 0);
-
-         // Sub unsurs yang sesuai dengan unsur ini
          $subUnsurs = $subUnsursGrouped->get($unsur->id);
+         $inserted = 0;
+         $attempts = 0;
 
-         for ($i = 0; $i < $jumlahPerUnsur; $i++) {
-            // Sub unsur nullable, ambil random dari sub unsur milik unsur ini (atau null)
-            $subUnsurId = $subUnsurs && $subUnsurs->isNotEmpty() ? $subUnsurs->random()->id : null;
+         while ($inserted < $jumlahPerUnsur && $attempts < $maxAttempts) {
+            $attempts++;
 
-            // Tingkat nullable, 70% chance diisi, 30% null
-            $tingkatId = rand(1, 10) <= 7 ? $tingkats->random() : null;
+            $subUnsur = $subUnsurs && $subUnsurs->isNotEmpty() ? $subUnsurs->random() : null;
+
+            $tingkatId = rand(1, 10) <= 7 ? $tingkatIds->random() : null;
+            $partisipasiId = rand(1, 10) <= 7 ? $partisipasiIds->random() : null;
+
+            $nameParts = [
+               $unsur->name,
+               $subUnsur ? $subUnsur->name : 'Tidak Ada',
+               $tingkatId ? $tingkatNames[$tingkatId] : 'Tidak Ada',
+               $partisipasiId ? $partisipasiNames[$partisipasiId] : 'Tidak Ada',
+            ];
+
+            $name = implode(' - ', $nameParts);
+
+            if (in_array($name, $usedNames)) {
+               continue;
+            }
+
+            $usedNames[] = $name;
 
             $skpDetails[] = [
-               'name' => "SKP Detail {$counter} - {$unsur->name}",
+               'name' => $name,
                'bobot' => rand(5, 10),
                'unsur_id' => $unsur->id,
-               'sub_unsur_id' => $subUnsurId,
+               'sub_unsur_id' => $subUnsur?->id,
                'tingkat_id' => $tingkatId,
-               'partisipasi_id' => $partisipasis->random(),
+               'partisipasi_id' => $partisipasiId,
                'created_at' => now(),
                'updated_at' => now(),
             ];
 
+            $inserted++;
             $counter++;
+         }
+
+         if ($attempts >= $maxAttempts) {
+            $this->command->warn(
+               "Kombinasi unik habis untuk unsur: {$unsur->name}, hanya berhasil insert {$inserted}/{$jumlahPerUnsur}.",
+            );
          }
       }
 
       DB::table('skp_details')->insert($skpDetails);
 
-      $this->command->info("Berhasil insert {$totalTarget} SKP Detail.");
+      $this->command->info("Berhasil insert {$counter} SKP Detail.");
    }
 }
