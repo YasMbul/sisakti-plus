@@ -35,6 +35,7 @@ Route::middleware(['auth', 'role:admin'])
    ->name('admin.')
    ->group(function () {
       Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('home');
+      Route::get('/kelola-akun', \App\Livewire\Admin\KelolaAkun::class)->name('kelola-akun');
    });
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
