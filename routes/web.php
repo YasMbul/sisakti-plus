@@ -39,6 +39,7 @@ Route::middleware(['auth', 'role:admin'])
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::view('/', 'livewire.mahasiswa.dashboard')->name('home');
+   Route::view('/lihat-sertifikat', 'livewire.mahasiswa.lihat-sertifikat')->name('lihat-sertifikat');
 });
 
 Route::get('/logout-test', function () {

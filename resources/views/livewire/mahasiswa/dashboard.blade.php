@@ -9,7 +9,7 @@
     {{-- Header Dashboard --}}
     <div class="py-6 pl-11 pr-7 flex justify-between items-center bg-white">
         <div>
-            <h1 class="text-2xl font-bold text-judul">Dashboard Admin</h1>
+            <h1 class="text-2xl font-bold text-judul">Dashboard</h1>
             <p class="text-sm text-subtext-dark-grey">Mahasiswa Universitas Udayana</p>
         </div>
         

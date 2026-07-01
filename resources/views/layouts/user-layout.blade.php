@@ -30,8 +30,8 @@
       ],
       [
          'title' => 'Daftar Sertifikat',
-         'isActive' => false,
-         'to' => '/',
+         'isActive' => request()->routeIs('lihat-sertifikat'),
+         'to' => route('lihat-sertifikat'),
          'icon' => 'hamburg',
       ],
    ];
