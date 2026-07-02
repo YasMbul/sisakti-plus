@@ -46,6 +46,9 @@ Route::middleware(['auth', 'role:admin'])
       Route::get('/verifikasi-skp/{id}/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name(
          'verifikasi-skp.show',
       );
+      Route::get('/pengaturan-skp', \App\Livewire\Admin\PengaturanSkp\Index::class)->name(
+         'pengaturan-skp',
+      );
    });
 
 // Route Mahasiswa
@@ -58,10 +61,6 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name(
       'mahasiswa.daftar',
    );
-   Route::get(
-      '/daftar-sertifikat/{id}/edit',
-      \App\Livewire\Mahasiswa\DaftarSertifikat\Edit::class,
-   )->name('daftar-sertifikat.edit');
 });
 
 Route::view('/login-view', 'login');

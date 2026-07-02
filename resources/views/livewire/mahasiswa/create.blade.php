@@ -24,7 +24,7 @@
    </div>
 
    {{-- Main Container --}}
-   <div class="flex items-stretch h-192 gap-4 bg-stone-50 py-4 pr-7 pl-11">
+   <div class="flex h-192 items-stretch gap-4 bg-stone-50 py-4 pr-7 pl-11">
       <div class="flex-1 font-sans">
          {{-- Alert Success / Error --}}
          @if (session()->has('success'))
@@ -212,4 +212,7 @@
          />
       @endif
    </div>
+
+   {{-- Footer Dashboard --}}
+   <x-footer></x-footer>
 </div>

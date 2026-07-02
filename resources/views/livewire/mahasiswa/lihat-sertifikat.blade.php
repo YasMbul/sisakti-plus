@@ -140,3 +140,5 @@
     </div>
 
 @endsection
+{{-- Footer Dashboard --}}
+<x-footer/>

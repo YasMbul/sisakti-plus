@@ -50,6 +50,12 @@
             'to' => route('admin.kelola-akun'),
             'icon' => 'user',
          ],
+         [
+            'title' => 'Pengaturan SKP',
+            'isActive' => request()->routeIs('admin.pengaturan-skp*'),
+            'to' => route('admin.pengaturan-skp'),
+            'icon' => 'gear',
+         ]
       ],
    };
 

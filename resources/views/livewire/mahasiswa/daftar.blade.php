@@ -1,4 +1,4 @@
-<div>
+<div class="min-h-screen bg-stone-50">
    {{-- Header Page --}}
    <div
       class="flex items-center justify-between border-b border-stone-200 bg-white py-6 pr-7 pl-11"
@@ -21,7 +21,7 @@
    </div>
 
    {{-- Main Container --}}
-   <div class="min-h-screen bg-stone-50 py-2 pr-7 pl-11">
+   <div class="bg-stone-50 py-2 pr-7 pl-11">
       <div class="my-2 w-full space-y-6 font-sans">
          {{-- Flash Alert --}}
          @if (session()->has('success'))
@@ -86,7 +86,7 @@
 
          {{-- Table Card --}}
          <div class="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto p-2">
                <table class="w-full border-collapse text-left text-sm">
                   <thead>
                      <tr
@@ -238,6 +238,32 @@
                      @endforelse
                   </tbody>
                </table>
+               <div class="mt-6 flex items-center justify-between pt-2">
+                  {{-- Tombol Previous --}}
+                  <button
+                     wire:click="previousPage"
+                     wire:loading.attr="disabled"
+                     @disabled ($skps->onFirstPage())
+                     class="border-border-custom hover:bg-border-custom/10 cursor-pointer rounded-xl border px-4 py-2 text-xs font-bold text-black transition disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                     Previous
+                  </button>
+
+                  {{-- Keterangan Halaman --}}
+                  <span class="text-primary text-xs font-semibold">
+                     Page {{ $skps->currentPage() }} of {{ $skps->lastPage() }}</span
+                  >
+
+                  {{-- Tombol Next --}}
+                  <button
+                     wire:click="nextPage"
+                     wire:loading.attr="disabled"
+                     @disabled ($skps->onLastPage())
+                     class="border-border-custom hover:bg-border-custom/10 cursor-pointer rounded-xl border px-4 py-2 text-xs font-bold text-black transition disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                     Next
+                  </button>
+               </div>
             </div>
          </div>
       </div>
