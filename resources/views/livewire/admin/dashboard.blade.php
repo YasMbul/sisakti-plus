@@ -1,4 +1,4 @@
-<div>
+<div class="min-h-screen">
    {{-- Header Dashboard --}}
    <div class="flex items-center justify-between bg-white py-6 pr-7 pl-13">
       <div>

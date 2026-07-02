@@ -1,4 +1,4 @@
-<div>
+<div class="min-h-screen">
    {{-- Header Verifikasi SKP --}}
    <div class="flex h-full items-center justify-between bg-white py-6 pr-7 pl-11">
       <div>

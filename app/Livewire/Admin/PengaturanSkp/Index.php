@@ -12,66 +12,67 @@ use Livewire\Attributes\Title;
 #[Title('Pengaturan SKP')]
 class Index extends Component
 {
-    public ?int $selectedUnsurId = null;
+   public ?int $selectedUnsurId = 1;
 
-    // Inline edit
-    public ?int $editingSkpDetailId = null;
-    public ?int $editingBobot       = null;
+   // Inline edit
+   public ?int $editingSkpDetailId = null;
+   public ?int $editingBobot = null;
 
-    // ─── Navigation ──────────────────────────────────────────────────
+   // ─── Navigation ──────────────────────────────────────────────────
 
-    public function selectUnsur(int $id): void
-    {
-        $this->selectedUnsurId = $id;
-        $this->cancelEdit();
-    }
+   public function selectUnsur(int $id): void
+   {
+      if ($this->selectedUnsurId === $id) {
+         $this->selectedUnsurId = null;
+         $this->cancelEdit();
+         return;
+      }
+      $this->selectedUnsurId = $id;
+      $this->cancelEdit();
+   }
 
-    // ─── Inline Edit ─────────────────────────────────────────────────
+   // ─── Inline Edit ─────────────────────────────────────────────────
 
-    public function startEdit(int $id, int $bobot): void
-    {
-        $this->editingSkpDetailId = $id;
-        $this->editingBobot       = $bobot;
-    }
+   public function startEdit(int $id, int $bobot): void
+   {
+      $this->editingSkpDetailId = $id;
+      $this->editingBobot = $bobot;
+   }
 
-    public function cancelEdit(): void
-    {
-        $this->editingSkpDetailId = null;
-        $this->editingBobot       = null;
-    }
+   public function cancelEdit(): void
+   {
+      $this->editingSkpDetailId = null;
+      $this->editingBobot = null;
+   }
 
-    public function saveBobot(): void
-    {
-        $this->validate([
-            'editingBobot' => ['required', 'integer', 'min:0', 'max:9999'],
-        ]);
+   public function saveBobot(): void
+   {
+      $this->validate([
+         'editingBobot' => ['required', 'integer', 'min:0', 'max:9999'],
+      ]);
 
-        SkpDetail::findOrFail($this->editingSkpDetailId)
-            ->update(['bobot' => $this->editingBobot]);
+      SkpDetail::findOrFail($this->editingSkpDetailId)->update(['bobot' => $this->editingBobot]);
 
-        $this->cancelEdit();
-    }
+      $this->cancelEdit();
+   }
 
-    // ─── Render ──────────────────────────────────────────────────────
+   // ─── Render ──────────────────────────────────────────────────────
 
-    public function render()
-    {
-        $unsurs      = Unsur::orderBy('name')->get();
-        $selectedUnsur = $this->selectedUnsurId
-            ? Unsur::find($this->selectedUnsurId)
-            : null;
+   public function render()
+   {
+      $unsurs = Unsur::orderBy('name')->get();
+      $selectedUnsur = $this->selectedUnsurId ? Unsur::find($this->selectedUnsurId) : null;
 
-        $skpDetails = $this->selectedUnsurId
-            ? SkpDetail::with(['subUnsur', 'tingkat', 'partisipasi'])
-                ->where('unsur_id', $this->selectedUnsurId)
-                ->orderBy('id')
-                ->get()
-            : collect();
+      $skpDetails = $this->selectedUnsurId
+         ? SkpDetail::with(['subUnsur', 'tingkat', 'partisipasi'])
+            ->where('unsur_id', $this->selectedUnsurId)
+            ->orderBy('id')
+            ->get()
+         : collect();
 
-        return view('livewire.admin.pengaturan-skp.index', compact(
-            'unsurs',
-            'selectedUnsur',
-            'skpDetails',
-        ));
-    }
+      return view(
+         'livewire.admin.pengaturan-skp.index',
+         compact('unsurs', 'selectedUnsur', 'skpDetails'),
+      );
+   }
 }
