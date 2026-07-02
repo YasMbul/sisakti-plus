@@ -46,6 +46,9 @@ Route::middleware(['auth', 'role:admin'])
       Route::get('/verifikasi-skp/{id}/show', \App\Livewire\Admin\VerifikasiSkp\Show::class)->name(
          'verifikasi-skp.show',
       );
+      Route::get('/pengaturan-skp', \App\Livewire\Admin\PengaturanSkp\Index::class)->name(
+         'pengaturan-skp',
+      );
    });
 
 // Route Mahasiswa
