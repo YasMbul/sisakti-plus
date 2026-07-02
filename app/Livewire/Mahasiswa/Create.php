@@ -111,7 +111,6 @@ class Create extends Component
       } else {
          $skp = new Skp();
          $skp->user_id = auth()->id();
-         $skp->status = 'pending';
       }
 
       $skp->name = $this->nama_kegiatan;
@@ -121,6 +120,7 @@ class Create extends Component
       $skp->certificate = $sertificatePath;
       $skp->semester_id = $this->semester;
       $skp->skp_detail_id = $skpDetail->id;
+      $skp->status = 'pending';
       $skp->save();
 
       session()->flash(

@@ -1,4 +1,4 @@
-<div class="min-h-screen">
+<div class="min-h-screen flex flex-col ">
    {{-- Header Page --}}
    <div
       class="flex items-center justify-between border-b border-stone-200 bg-white py-6 pr-7 pl-11"
@@ -24,7 +24,7 @@
    </div>
 
    {{-- Main Container --}}
-   <div class="flex h-192 items-stretch gap-4 bg-stone-50 py-4 pr-7 pl-11">
+   <div class="flex flex-1 items-stretch gap-4 bg-stone-50 py-4 pr-7 pl-11">
       <div class="flex-1 font-sans">
          {{-- Alert Success / Error --}}
          @if (session()->has('success'))
@@ -213,7 +213,7 @@
          <livewire:chat
             skpId="{{ $skpId }}"
             bubbleClass="flex-1"
-            containerClass="w-full! flex-1 self-stretch"
+            containerClass="w-full! max-h-191 flex-1 self-stretch"
          />
       @endif
    </div>

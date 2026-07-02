@@ -197,7 +197,7 @@
                               <div class="flex items-center justify-center gap-2">
                                  {{-- View File --}}
                                  <a
-                                    href="{{ asset('storage/' . $skp->sertificate) }}"
+                                    href="{{ asset('storage/' . $skp->certificate) }}"
                                     target="_blank"
                                     class="hover:text-stone-850 rounded-lg p-1.5 text-stone-500 transition hover:bg-stone-100"
                                     title="Lihat Sertifikat"
