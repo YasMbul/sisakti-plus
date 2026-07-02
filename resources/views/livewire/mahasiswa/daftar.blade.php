@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-stone-50">
+<div class="min-h-screen bg-stone-50 flex flex-col">
    {{-- Header Page --}}
    <div
       class="flex items-center justify-between border-b border-stone-200 bg-white py-6 pr-7 pl-11"
@@ -7,7 +7,19 @@
          <h1 class="text-2xl font-bold text-stone-900">Daftar Sertifikat</h1>
          <p class="text-sm text-stone-500">Kelola riwayat sertifikat SKP yang telah Anda unggah.</p>
       </div>
-      <div>
+      <div class="flex items-center gap-3">
+         {{-- Tombol Download Kartu SKP --}}
+         <a
+            href="{{ route('mahasiswa.kartu-skp.download') }}"
+            target="_blank"
+            class="inline-flex items-center gap-2 rounded-lg border border-teal-900 bg-white px-4 py-2 text-sm font-semibold text-teal-900 transition duration-200 hover:bg-teal-50"
+         >
+            <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+               <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+            </svg>
+            Cetak Kartu SKP
+         </a>
+
          <a
             href="{{ route('mahasiswa.upload') }}"
             class="inline-flex items-center gap-2 rounded-lg bg-teal-900 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-teal-950"
@@ -21,7 +33,7 @@
    </div>
 
    {{-- Main Container --}}
-   <div class="bg-stone-50 py-2 pr-7 pl-11">
+   <div class="flex-1 bg-stone-50 py-2 pr-7 pl-11">
       <div class="my-2 w-full space-y-6 font-sans">
          {{-- Flash Alert --}}
          @if (session()->has('success'))
@@ -268,4 +280,6 @@
          </div>
       </div>
    </div>
+   {{-- Footer --}}
+   <x-footer />
 </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\UnsurController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SkpPdfController;
 use Illuminate\Support\Facades\Auth;
 
 // Route::view('/', 'welcome')->name('home');
@@ -60,6 +61,9 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
    );
    Route::get('/daftar-sertifikat', \App\Livewire\Mahasiswa\Daftar::class)->name(
       'mahasiswa.daftar',
+   );
+   Route::get('/kartu-skp/download', [SkpPdfController::class, 'download'])->name(
+      'mahasiswa.kartu-skp.download',
    );
 });
 
