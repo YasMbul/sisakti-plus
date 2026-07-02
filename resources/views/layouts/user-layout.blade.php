@@ -20,35 +20,41 @@
       'mahasiswa' => [
          [
             'title' => 'Panduan SKP',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('mahasiswa.panduan'),
+            'to' => route('mahasiswa.panduan'),
             'icon' => 'book',
          ],
          [
             'title' => 'Upload Sertifikat',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('mahasiswa.upload'),
+            'to' => route('mahasiswa.upload'),
             'icon' => 'up-arrow',
          ],
          [
             'title' => 'Daftar Sertifikat',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('mahasiswa.daftar'),
+            'to' => route('mahasiswa.daftar'),
             'icon' => 'hamburg',
          ],
       ],
       'admin' => [
          [
             'title' => 'Verifikasi SKP',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('admin.verifikasi-skp*'),
+            'to' => route('admin.verifikasi-skp'),
             'icon' => 'up-arrow',
          ],
          [
             'title' => 'Kelola Akun',
-            'isActive' => false,
-            'to' => '/',
+            'isActive' => request()->routeIs('admin.kelola-akun*'),
+            'to' => route('admin.kelola-akun'),
             'icon' => 'user',
+         ],
+         [
+            'title' => 'Pengaturan SKP',
+            'isActive' => request()->routeIs('admin.pengaturan-skp*'),
+            'to' => route('admin.pengaturan-skp'),
+            'icon' => 'gear',
          ],
       ],
    };
@@ -67,7 +73,7 @@
 
 <body>
    <div class="font-montserrat min-h-screen">
-      <nav class="bg bg-primary fixed top-0 left-0 flex min-h-screen flex-col">
+      <nav class="bg bg-primary fixed top-0 left-0 z-999 flex min-h-screen max-w-64 flex-col">
          <div class="flex flex-col items-center border-b border-[#666666] p-8">
             <img src="{{ asset('assets/images/Logo.svg') }}" alt="Logo Sisakti-Plus" />
             <h1 class="font-semibold text-[#C1C1C1]">Universitas Udayana</h1>
@@ -88,6 +94,7 @@
                   href="{{ $dashboard['to'] }}"
                   icon="dashboard"
                   isActive="{{ $dashboard['isActive'] }}"
+                  class="{{ $dashboard['isActive'] ? '' : 'hover:bg-white/15' }}"
                   iconClass="size-4!"
                >
                   Dashboard
@@ -130,7 +137,7 @@
             </form>
          </div>
       </nav>
-      <main class="ml-58">
+      <main class="bg-background ml-58">
          @if (isset($slot))
             {{ $slot }}
          @else
