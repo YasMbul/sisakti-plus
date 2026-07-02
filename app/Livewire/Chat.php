@@ -12,6 +12,8 @@ class Chat extends Component
    public string $message = '';
    public ?int $replyToId = null;
    public $comments;
+   public string $bubbleClass = 'max-h-100 min-h-40';
+   public string $containerClass = '';
 
    public function mount(int $skpId)
    {
@@ -35,7 +37,7 @@ class Chat extends Component
       ]);
 
       $this->dispatch('reject-data');
-      
+
       Comment::create([
          'skp_id' => $this->skpId,
          'user_id' => auth()->user()->id,

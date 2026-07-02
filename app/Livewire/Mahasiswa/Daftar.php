@@ -23,7 +23,7 @@ class Daftar extends Component
 
         if ($skp->status === 'approved') {
             session()->flash('error', 'Sertifikat yang sudah disetujui tidak dapat dihapus.');
-            return;
+         return;
         }
 
         // Delete file from storage

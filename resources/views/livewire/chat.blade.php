@@ -1,12 +1,12 @@
 <div
-   class="border-primary flex w-1/2 flex-col gap-3 overflow-hidden rounded-lg border bg-white"
+   class="{{ $containerClass }} border-primary flex w-1/2 flex-col gap-3 overflow-hidden rounded-lg border bg-white"
    wire:click.outside="closeChat"
 >
-   <div class="text-white bg-primary py-2 px-4">
+   <div class="bg-primary px-4 py-2 text-white">
       <h1>Kirim/Balas Pesan Reject</h1>
    </div>
    {{-- Bubble messages --}}
-   <div class="flex max-h-100 min-h-40 flex-col gap-3 overflow-y-auto p-4">
+   <div class="flex {{ $bubbleClass }} flex-col gap-3 overflow-y-auto p-4">
       @foreach ($comments as $comment)
          @php $isMe = $comment->user_id === auth()->id(); @endphp
          <div class="flex items-end gap-2 {{ $isMe ? 'flex-row-reverse' : '' }}">
@@ -41,7 +41,7 @@
                   }}</span>
                   <button
                      wire:click="setReply({{ $comment->id }})"
-                     class="text-xs text-primary/80 hover:text-primary/80"
+                     class="text-primary/80 hover:text-primary/80 text-xs"
                   >
                      Balas
                   </button>
@@ -85,7 +85,7 @@
       <div
          class="mx-4 flex items-center justify-between rounded border-l-4 border-blue-400 bg-blue-50 px-4 py-2"
       >
-         <span class="text-xs text-primary/80">Membalas komentar...</span>
+         <span class="text-primary/80 text-xs">Membalas komentar...</span>
          <button wire:click="cancelReply" class="text-xs text-gray-400 hover:text-gray-600">
             Batal
          </button>
@@ -109,7 +109,7 @@
       ></textarea>
       <button
          wire:click="sendMessage"
-         class="bg-primary flex h-9 w-9 items-center justify-center rounded-full text-white hover:bg-primary/40"
+         class="bg-primary hover:bg-primary/40 flex h-9 w-9 items-center justify-center rounded-full text-white"
       >
          <x-icons.paper-plane class="size-4!" />
       </button>
