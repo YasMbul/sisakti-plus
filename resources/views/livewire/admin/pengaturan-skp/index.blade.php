@@ -35,7 +35,7 @@
                   <button
                      wire:click="selectUnsur({{ $unsur->id }})"
                      id="unsur-btn-{{ $unsur->id }}"
-                     class="flex w-full items-start gap-3 rounded-xl px-3 py-3 text-left transition
+                     class="cursor-pointer flex w-full items-start gap-3 rounded-xl px-3 py-3 text-left transition
                             {{ $selectedUnsurId === $unsur->id
                                ? 'bg-primary text-white shadow-sm'
                                : 'text-gray-600 hover:bg-gray-50' }}"

@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-stone-50 flex flex-col">
+<div class="flex min-h-screen flex-col bg-stone-50">
    {{-- Header Page --}}
    <div
       class="flex items-center justify-between border-b border-stone-200 bg-white py-6 pr-7 pl-11"

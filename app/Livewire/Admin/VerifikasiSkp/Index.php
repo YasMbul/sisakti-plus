@@ -13,6 +13,8 @@ class Index extends Component
 {
    use WithPagination;
 
+   public $search = '';
+
    public function getAvatar(mixed $user)
    {
       return $user->picture
@@ -29,7 +31,7 @@ class Index extends Component
       $user = auth()->user();
       $twoYearsAgo = now()->subYears(2)->startOfYear();
 
-      $users = $user->faculty
+      $query = $user->faculty
          ->users()
          ->with([
             'skps' => function ($q) use ($twoYearsAgo) {
@@ -50,9 +52,19 @@ class Index extends Component
                },
             ],
             'created_at',
-         )
-         ->orderBy('skps_min_created_at') // urutkan user berdasarkan SKP paling lama menunggu
-         ->paginate(10);
+         );
+
+      if ($this->search) {
+         $query->where(function ($q) {
+            $q->where('name', 'like', '%' . $this->search . '%')->orWhere(
+               'nim',
+               'like',
+               '%' . $this->search . '%',
+            );
+         });
+      }
+
+      $users = $query->orderBy('skps_min_created_at')->paginate(10);
       return view('livewire.admin.verifikasi-skp.index', compact('users'));
    }
 }
