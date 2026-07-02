@@ -136,7 +136,11 @@
                         accept="application/pdf"
                      />
                      <div class="text-3xl text-stone-700">
-                        <img src="{{ asset('images/Vector.png') }}" alt="PDF Icon" srcset="" />
+                        <img
+                           src="{{ asset('assets/images/Vector.png') }}"
+                           alt="PDF Icon"
+                           srcset=""
+                        />
                      </div>
                      <div class="text-sm font-semibold text-stone-900">
                         {{
@@ -203,6 +207,7 @@
          </div>
       </div>
 
+      {{-- @dump ($sertifikat) --}}
       {{-- @dd ($isEdit, $skpId) --}}
       @if ($isEdit && $skpId)
          <livewire:chat
