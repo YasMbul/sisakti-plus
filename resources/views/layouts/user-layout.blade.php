@@ -55,7 +55,7 @@
             'isActive' => request()->routeIs('admin.pengaturan-skp*'),
             'to' => route('admin.pengaturan-skp'),
             'icon' => 'gear',
-         ]
+         ],
       ],
    };
 
@@ -73,7 +73,7 @@
 
 <body>
    <div class="font-montserrat min-h-screen">
-      <nav class="bg max-w-64 bg-primary fixed top-0 left-0 z-999 flex min-h-screen flex-col">
+      <nav class="bg bg-primary fixed top-0 left-0 z-999 flex min-h-screen max-w-64 flex-col">
          <div class="flex flex-col items-center border-b border-[#666666] p-8">
             <img src="{{ asset('assets/images/Logo.svg') }}" alt="Logo Sisakti-Plus" />
             <h1 class="font-semibold text-[#C1C1C1]">Universitas Udayana</h1>
@@ -94,6 +94,7 @@
                   href="{{ $dashboard['to'] }}"
                   icon="dashboard"
                   isActive="{{ $dashboard['isActive'] }}"
+                  class="{{ $dashboard['isActive'] ? '' : 'hover:bg-white/15' }}"
                   iconClass="size-4!"
                >
                   Dashboard
