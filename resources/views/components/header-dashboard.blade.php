@@ -2,8 +2,8 @@
     'title' => '',
     'subtitle' => 'Mahasiswa Universitas Udayana',
     'showNotif' => false,
-    'showExport' => false,
-    'exportLabel' => 'Export Data',
+    'showBack' => false,
+    'exportLabel' => 'Kembali',
 ])
 
 <div {{ $attributes->merge(['class' => 'flex items-center justify-between bg-white py-6 pr-7 pl-11']) }}>
@@ -33,16 +33,12 @@
         @endif
 
         {{-- Tombol Export Data --}}
-        @if($showExport)
+        @if($showBack)
             <button type="button" class="bg-primary hover:bg-opacity-90 flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition">
-                @if(isset($exportIcon))
-                    {{ $exportIcon }}
-                @else
                     {{-- Default SVG Export --}}
                     <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.6963 1.24463V16.9651M14.7705 8.31885L7.6963 1.24463L0.62207 8.31885" stroke="white" stroke-width="1.76" />
                     </svg>
-                @endif
                 {{ $exportLabel }}
             </button>
         @endif
