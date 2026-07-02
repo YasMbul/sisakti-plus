@@ -1,24 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
 @theme {
-   --font-montserrat:
-      'Montserrat', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol', 'Noto Color Emoji';
-
-   --color-primary: #1b4d3e;
-   --color-subtext-light-grey: #9A9489;
-   --color-subtext-dark-grey: #5C5750;
-   --color-subtext-brown: #92570A;
-   --color-status-blue: #2563EB;
-   --color-status-green: #1D9E75;
-   --color-status-red: #8B2020;
-   --color-status-grey: #5C5750;
-   --color-status-yellow: #EF9F27;
-   --color-black: #1A1714;
-   --color-border-custom: #E8E4DC;
-   --color-background: #F5F3EE;
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
