@@ -8,8 +8,8 @@ use Livewire\Attributes\On;
 
 class Chat extends Component
 {
-   public int $skpId;
-   public string $message = '';
+   public ?int $skpId = null;
+   public string $chat = '';
    public ?int $replyToId = null;
    public $comments;
    public string $bubbleClass = 'max-h-100 min-h-40';
@@ -33,7 +33,7 @@ class Chat extends Component
    public function sendMessage()
    {
       $this->validate([
-         'message' => 'required|min:3',
+         'chat' => 'required|min:3',
       ]);
 
       $this->dispatch('reject-data');
@@ -41,11 +41,11 @@ class Chat extends Component
       Comment::create([
          'skp_id' => $this->skpId,
          'user_id' => auth()->user()->id,
-         'body' => trim($this->message),
+         'body' => trim($this->chat),
          'parent_id' => $this->replyToId,
       ]);
 
-      $this->message = '';
+      $this->chat = '';
       $this->replyToId = null;
       $this->loadComments();
    }
@@ -62,7 +62,7 @@ class Chat extends Component
 
    public function closeChat()
    {
-      $this->reset(['skpId', 'message', 'replyToId']);
+      // $this->reset(['skpId', 'chat', 'replyToId']);
       $this->dispatch('closeChat');
    }
 
@@ -70,6 +70,38 @@ class Chat extends Component
    public function refresh()
    {
       $this->loadComments();
+   }
+
+   #[On('check-reject-comment')]
+   public function checkRejectComment()
+   {
+      $this->resetErrorBag('chat');
+      if (!$this->skpId) {
+         $this->dispatch('reject-comment-invalid');
+         return;
+      }
+      if (empty(trim($this->chat))) {
+         $hasAdminComment = Comment::where('skp_id', $this->skpId)
+            ->where('user_id', auth()->id())
+            ->exists();
+
+         if (!$hasAdminComment) {
+            $this->dispatch('reject-comment-invalid');
+            return;
+         }
+      }
+
+      if (!empty(trim($this->chat))) {
+         $this->sendMessage();
+      }
+
+      $this->dispatch('reject-comment-valid');
+   }
+
+   #[On('set-chat-error')]
+   public function setChatError()
+   {
+      $this->addError('chat', 'Tulis alasan penolakan terlebih dahulu.');
    }
 
    public function render()

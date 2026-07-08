@@ -11,7 +11,7 @@
          @php $isMe = $comment->user_id === auth()->id(); @endphp
          <div class="flex items-end gap-2 {{ $isMe ? 'flex-row-reverse' : '' }}">
             <div
-               class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0
+               class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium shrink-0
                     {{ $isMe ? 'bg-blue-100 text-primary/80' : 'bg-gray-100 text-gray-600' }}"
             >
                {{
@@ -53,7 +53,7 @@
             @php $isMeReply = $reply->user_id === auth()->id(); @endphp
             <div class="flex items-end gap-2 {{ $isMeReply ? 'flex-row-reverse' : '' }} pl-10">
                <div
-                  class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0
+                  class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium shrink-0
                         {{ $isMeReply ? 'bg-blue-100 text-primary/80' : 'bg-gray-100 text-gray-600' }}"
                >
                   {{
@@ -94,19 +94,29 @@
 
    {{-- Input --}}
    <div class="flex items-center gap-2 px-4 py-4">
-      <textarea
-         wire:model="message"
-         x-data
-         x-on:keydown.enter="
-            if (!$event.shiftKey) {
-               $event.preventDefault();
-               $wire.sendMessage();
-            }
-         "
-         placeholder="Tulis pesan..."
-         rows="3"
-         class="focus:border-primary flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm focus:outline-none"
-      ></textarea>
+      <div class="flex-1">
+         
+         @error ('chat')
+            <span class="text-sm text-red-500">{{ $message }}</span>
+         @enderror
+         <textarea
+            wire:model="chat"
+            x-data
+            x-on:keydown.enter="
+               if (!$event.shiftKey) {
+                  $event.preventDefault();
+                  $wire.sendMessage();
+               }
+            "
+            placeholder="Tulis pesan..."
+            rows="3"
+            @class ([
+               'w-full rounded-xl border  bg-white px-4 py-2 text-sm focus:outline-none',
+               'border-red-500 focus:border-red-500' => $errors->has('chat'),
+               'border-gray-200 focus:border-primary' => !$errors->has('chat')
+            ])
+         ></textarea>
+      </div>
       <button
          wire:click="sendMessage"
          class="bg-primary hover:bg-primary/40 flex h-9 w-9 items-center justify-center rounded-full text-white"
