@@ -1,23 +1,7 @@
 <div class="min-h-screen">
-   {{-- Header Dashboard --}}
-   <div class="flex items-center justify-between bg-white py-6 pr-7 pl-13">
-      <div>
-         <h1 class="text-judul text-2xl font-bold">Dashboard Admin</h1>
-         <p class="text-subtext-dark-grey text-sm">Mahasiswa Universitas Udayana</p>
-      </div>
-
-      <div class="flex items-center gap-4">
-         {{-- Tombol Export Data --}}
-         <button
-            class="bg-primary hover:bg-opacity-90 flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition"
-         >
-            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M7.6963 1.24463V16.9651M14.7705 8.31885L7.6963 1.24463L0.62207 8.31885" stroke="white" stroke-width="1.76" />
-            </svg>
-            Export Data
-         </button>
-      </div>
-   </div>
+   <x-header-dashboard 
+      title="Dashboard Admin"  
+   />
 
    {{-- main content --}}
    <div class="bg-background py-7 pr-7 pl-11">
@@ -95,6 +79,7 @@
                      <div class="flex gap-2">
                         <button
                            class="bg-status-green/20 text-status-green hover:bg-status-green/50 rounded-lg px-3 py-2 text-xs font-medium transition"
+                           href="#"
                            wire:confirm="Apakah anda yakin ingin menyetujui sertifikat ini?"
                            wire:click="acceptSkp({{ $skp->id }})"
                         >
@@ -102,7 +87,7 @@
                         </button>
                         <button
                            class="text-status-red rounded-lg bg-red-100 px-3 py-2 text-xs font-medium transition hover:bg-red-200"
-                           wire:click="openRejectModal({{ $skp->id }})"
+                           href="#"
                            {{-- logic untuk tombol tolak --}}
                         >
                            Tolak
@@ -111,18 +96,11 @@
                   </div>
                </div>
             @empty
-               <x-empty-table
-                  title="Belum Ada Sertifikat yang berstatus 'pending'"
-                  message="Belum ada mahasiswa yang menginputkan Sertifikat, atau Sertifikat yang Anda cari tidak ditemukan dalam database."
-               />
+               <x-empty-table 
+                title="Belum Ada Sertifikat yang berstatus 'pending'"
+                message="Belum ada mahasiswa yang menginputkan Sertifikat, atau Sertifikat yang Anda cari tidak ditemukan dalam database."/>
             @endforelse
          </div>
       </div>
    </div>
-
-   @if ($rejectSkpId)
-      <div class="fixed inset-0 z-10 flex items-center justify-center">
-         <livewire:chat skpId="{{ $rejectSkpId }}" />
-      </div>
-   @endif
 </div>

@@ -1,11 +1,6 @@
 <div>
    {{-- Header Kelola Akun --}}
-   <div class="flex items-center justify-between bg-white py-6 pr-7 pl-11">
-      <div>
-         <h1 class="text-judul text-2xl font-bold">Kelola Akun Mahasiswa</h1>
-         <p class="text-subtext-dark-grey text-sm">Mahasiswa Universitas Udayana</p>
-      </div>
-   </div>
+   <x-header-dashboard title="Kelola Akun" />
 
    {{-- Main Content Area --}}
    <div class="bg-background min-h-screen py-7 pr-7 pl-11">

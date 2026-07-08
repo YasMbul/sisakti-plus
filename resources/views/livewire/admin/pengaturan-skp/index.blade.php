@@ -1,11 +1,5 @@
 <div class="bg-background flex max-h-screen min-h-screen flex-col">
-   {{-- Header --}}
-   <div class="flex h-full items-center justify-between bg-white py-6 pr-7 pl-11">
-      <div>
-         <h1 class="text-judul text-2xl font-bold">Pengaturan SKP</h1>
-         <p class="text-subtext-dark-grey text-sm">Mahasiswa Universitas Udayana</p>
-      </div>
-   </div>
+   <x-header-dashboard title="Pengaturan SKP" />
 
    {{-- Main Content --}}
    <div class="bg-background flex-1 py-7 pr-7 pl-11">
