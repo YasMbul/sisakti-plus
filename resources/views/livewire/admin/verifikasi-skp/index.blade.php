@@ -1,23 +1,7 @@
 <div class="min-h-screen">
-   {{-- Header Verifikasi SKP --}}
-   <div class="flex h-full items-center justify-between bg-white py-6 pr-7 pl-11">
-      <div>
-         <h1 class="text-judul text-2xl font-bold">Verifikasi SKP</h1>
-         <p class="text-subtext-dark-grey text-sm">Mahasiswa Universitas Udayana</p>
-      </div>
-
-      <div class="flex items-center gap-4">
-         {{-- Tombol Export Data --}}
-         {{-- <button
-            class="bg-primary hover:bg-opacity-90 flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition"
-         >
-            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M7.6963 1.24463V16.9651M14.7705 8.31885L7.6963 1.24463L0.62207 8.31885" stroke="white" stroke-width="1.76" />
-            </svg>
-            Export Data
-         </button> --}}
-      </div>
-   </div>
+   <x-header-dashboard 
+      title="Verifikasi SKP"  
+   />
 
    {{-- Main Content Area --}}
    <div class="bg-background space-y-4 py-7 pr-7 pl-11">
@@ -26,7 +10,9 @@
             <span
                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-sm text-stone-400"
             >
-               🔍
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+               <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+               </svg>
             </span>
             <input
                type="text"
