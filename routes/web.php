@@ -11,7 +11,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SkpPdfController;
-use Illuminate\Support\Facades\Auth;
 
 // Route::view('/', 'welcome')->name('home');
 
@@ -71,7 +70,4 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
       'mahasiswa.kartu-skp.download',
    );
 });
-
-Route::view('/login-view', 'login');
-Route::view('/tes', 'tes')->name('tes');
 
